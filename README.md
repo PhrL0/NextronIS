@@ -1,5 +1,5 @@
 # Nextron IS
-Repositório destinado à elaboração e desenvolvimento do Projeto Integrador do 3º semestre
+Repositório destinado à elaboração e desenvolvimento da Poc
 
 # Projeto IoT com Comunicação LoRa e Predição Baseada em IA
 
