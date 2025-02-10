@@ -1,4 +1,4 @@
-# SharkTech
+# Nextron IS
 Repositório destinado à elaboração e desenvolvimento do Projeto Integrador do 3º semestre
 
 # Projeto IoT com Comunicação LoRa e Predição Baseada em IA
