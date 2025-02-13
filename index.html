@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nextron IS - Monitoramento Industrial</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="download.png"
+                alt="Logo" width="30">
+            Nextron IS
+        </a>
+        <div class="connection-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Conectando...</span>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <h1>Painel de Monitoramento Industrial</h1>
+
+        <div class="machine-status">
+            <div class="status-indicator">
+                <span class="status-icon">⚠️</span>
+                <span class="status-text">Estado: <span id="machineStateText">Carregando...</span></span>
+            </div>
+            <div class="status-description" id="machineStateDescription">
+                Aguardando dados do sistema...
+            </div>
+        </div>
+        
+        <div class="sensor-grid">
+            <div class="sensor-card">
+                <div class="sensor-header">
+                    <span class="sensor-title">Temperatura</span>
+                    <span class="sensor-value" id="temp">--<span class="unit">°C</span></span>
+                </div>
+                <progress max="150" value="0" id="tempProgress"></progress>
+            </div>
+
+            <div class="sensor-card">
+                <div class="sensor-header">
+                    <span class="sensor-title">Rotação</span>
+                    <span class="sensor-value" id="rotacao">--<span class="unit">°/s</span></span>
+                </div>
+                <progress max="1000" value="0" id="rotacaoProgress"></progress>
+            </div>
+
+            <div class="sensor-card">
+                <div class="sensor-header">
+                    <span class="sensor-title">Vibração</span>
+                    <span class="sensor-value" id="vibracao">--<span class="unit">m/s²</span></span>
+                </div>
+                <progress max="20" value="0" id="vibracaoProgress"></progress>
+            </div>
+
+            <div class="sensor-card">
+                <div class="sensor-header">
+                    <span class="sensor-title">Corrente</span>
+                    <span class="sensor-value" id="corrente">--<span class="unit">A</span></span>
+                </div>
+                <progress max="50" value="0" id="correnteProgress"></progress>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="loader"></div>
+            <canvas id="sensorChart"></canvas>
+        </div>
+
+        <div class="controls">
+            <button id="pauseBtn" class="btn btn-danger" onclick="pauseMonitoring()">
+                ⏸ Pausar Monitoramento
+            </button>
+            <button id="startBtn" class="btn btn-primary" onclick="startMonitoring()">
+                ▶ Iniciar Monitoramento
+            </button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <span>© 2024 Nextron Industrial Systems. Todos os direitos reservados.</span>
+    </footer>
+</body>
+
+</html>

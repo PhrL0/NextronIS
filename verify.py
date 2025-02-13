@@ -1,0 +1,2 @@
+from traningModel import Anomalyprediction
+
