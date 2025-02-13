@@ -18,7 +18,7 @@ def Anomalyprediction(responseData):
 
     y_pred = modelo.predict(X_test)
     
-    castingNumpy = np.array(responseData).reshape(1, -1)  # Transformar em uma matriz 2D com uma única linha
+    castingNumpy = np.array(responseData).reshape(1, -1)  # Transforma em uma matriz 2D com uma única linha
 
     predicao = modelo.predict(castingNumpy)
 
