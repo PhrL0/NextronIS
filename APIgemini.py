@@ -9,7 +9,7 @@ def gemini(message):
       "temperature": 0.9,
       "top_p": 0.95,
       "top_k": 64,
-      "max_output_tokens": 1000,
+      "max_output_tokens": 65536,
       "response_mime_type": "text/plain",
     }
 
