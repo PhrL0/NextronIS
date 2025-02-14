@@ -1,3 +1,4 @@
+
 let monitoringInterval;
 let isConnected = false;
 let connectionError = false;
@@ -173,13 +174,12 @@ async function fetchSensorData() {
         loader.style.display = 'block';
         const response = await fetch(`${API_URL}/sensores`);
         if (!response.ok) throw new Error('Erro na rede');
-        
+
         const data = await response.json();
-        console.log(data);
 
         updateUI(data);
         updateChart(data);
-      
+
         if (data.predicao !== undefined) {
             updateMachineState(data.predicao);
         }
@@ -187,7 +187,7 @@ async function fetchSensorData() {
         if (data.predicao === 2) {
             showCriticalAlert();
         }
-        
+
     } catch (error) {
         console.error('Erro:', error);
         if (error.name === 'AbortError') checkBackendConnection();
@@ -278,8 +278,140 @@ function showCriticalAlert() {
         stopKeydownPropagation: true
     });
 }
+// ===== LÓGICA DO CHAT =====
+let chatOpen = true;
+let isTyping = false;
+
+function toggleChat() {
+    chatOpen = !chatOpen;
+    const chat = document.querySelector('.nexmind-chat');
+
+    if (chatOpen) {
+        chat.classList.add('open');
+        document.getElementById('chatInput').focus();
+    } else {
+        chat.classList.remove('open');
+    }
+
+}
+
+function handleInput(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+}
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    try {
+        // Adiciona mensagem do usuário
+        addMessage('user', message, new Date());
+        input.value = '';
+
+        // Mostra indicador de digitação
+        showTypingIndicator(true);
+
+        // 👇🏼 Busca resposta do Gemini
+        const response = await getGeminiResponse(message);
+
+        // Adiciona resposta no chat
+        addMessage('nexmind', response, new Date());
+
+    } catch (error) {
+        // Trata erros
+        addMessage('system', `⚠️ Erro: ${error.message}`, new Date());
+    } finally {
+        // Esconde indicador de digitação
+        showTypingIndicator(false);
+    }
+}
+
+
+// Função para adicionar mensagem (mantida igual)
+function addMessage(sender, text, timestamp) {
+    const messagesDiv = document.getElementById('chatMessages');
+
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+
+    // Timestamp
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'message-timestamp';
+    timeDiv.textContent = timestamp.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    // Conteúdo
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    text.split('\n').forEach(paragraph => {
+        const p = document.createElement('p');
+        p.textContent = paragraph;
+        contentDiv.appendChild(p);
+    });
+
+    messageDiv.appendChild(timeDiv);
+    messageDiv.appendChild(contentDiv);
+    messagesDiv.appendChild(messageDiv);
+
+    // Scroll automático
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Função para mostrar indicador de digitação
+function showTypingIndicator(show) {
+    const indicator = document.getElementById('typingIndicator');
+    indicator.classList.toggle('visible', show);
+    if (show) scrollToBottom();
+}
+
+// Função para scroll automático
+function scrollToBottom() {
+    const messagesDiv = document.getElementById('chatMessages');
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+async function getGeminiResponse(message) {
+    try {
+        const response = await fetch(`${API_URL}/postGemini`, {
+            method: 'POST', // Gemini geralmente usa POST
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: message, // O texto enviado pelo usuário
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data
+
+    } catch (error) {
+        console.error('Erro ao chamar Gemini:', error);
+        throw new Error('Falha ao processar sua mensagem. Tente novamente.');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeChart();
     toggleButtons(false);
     startConnectionMonitoring();
+    toggleChat(); // Inicia fechado
+    // Botão do ícone do chatbot
+    document.getElementById('chatbot-icon').addEventListener('click', toggleChat);
+
+    // Botão de fechar no cabeçalho do chat
+    document.getElementById('chatStatus').addEventListener('click', () => {
+        chatOpen = false;
+        document.querySelector('.nexmind-chat').classList.remove('open');
+    });
 });

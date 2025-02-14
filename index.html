@@ -14,8 +14,7 @@
 <body>
     <nav class="navbar">
         <a href="#" class="logo">
-            <img src="download.png"
-                alt="Logo" width="30">
+            <img src="download.png" alt="Logo" width="30">
             Nextron IS
         </a>
         <div class="connection-status">
@@ -36,7 +35,7 @@
                 Aguardando dados do sistema...
             </div>
         </div>
-        
+
         <div class="sensor-grid">
             <div class="sensor-card">
                 <div class="sensor-header">
@@ -84,8 +83,49 @@
                 ▶ Iniciar Monitoramento
             </button>
         </div>
+        <svg class="chatbot-icon"   id="chatbot-icon" width="60" height="60" viewBox="0 0 60 60">
+            <circle class="chatbot-circle" cx="30" cy="30" r="28" />
+            <path class="chatbot-symbol" d="M20 25h20v12H20V25zm-2 14h24v4H18v-4zm6-18h12v4H24v-4z" />
+            <path class="chatbot-symbol" d="M30 42l-5-4h10l-5 4z" />
+        </svg>
     </main>
+    <div class="nexmind-chat">
+        <div class="chat-header" onclick="toggleChat()">
+            <div class="chat-header-content">
+                <div class="nexmind-avatar">NM</div>
+                <div class="chat-header-info">
+                    <h3>NexMind</h3>
+                    <p>Assistente de Monitoramento Industrial</p>
+                </div>
+            </div>
+            <div class="chat-status" id="chatStatus"></div>
+        </div>
 
+        <div class="chat-body" id="chatBody">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message nexmind">
+                    <div class="message-timestamp">10:00 AM</div>
+                    <div class="message-content">
+                        <p>Olá! Sou a NexMind, sua especialista em monitoramento industrial.</p>
+                        <p>Como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <div class="typing-indicator" id="typingIndicator">NexMind está digitando...</div>
+                <div class="input-container">
+                    <input type="text" id="chatInput" placeholder="Escreva sua mensagem..."
+                        aria-label="Campo de mensagem" onkeyup="handleInput(event)">
+                    <button class="send-button" onclick="sendMessage()" aria-label="Enviar mensagem">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M2 21L23 12L2 3v7l15 2-15 2v7Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <span>© 2024 Nextron Industrial Systems. Todos os direitos reservados.</span>
     </footer>

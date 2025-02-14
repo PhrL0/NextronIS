@@ -353,3 +353,235 @@ progress::-webkit-progress-value {
         padding-right: 1rem;
     }
 }
+/* ===== ESTILOS DO CHAT ===== */
+.nexmind-chat {
+    position: fixed;
+    bottom: 70px;
+    right: 15px;
+    width: 400px;
+    background: var(--background-light);
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+    transform: translateY(150%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1000;
+}
+
+.nexmind-chat.open {
+    transform: translateY(0);
+}
+
+.chat-header {
+    padding: 1.2rem;
+    background: var(--primary-color);
+    border-radius: 16px 16px 0 0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.chat-header:hover {
+    background: #1e3650;
+}
+
+.chat-header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nexmind-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+}
+
+.chat-header-info h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.chat-header-info p {
+    color: rgba(255,255,255,0.8);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.chat-status {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    background: #28a745;
+    border-radius: 50%;
+    border: 2px solid;
+    text-align: center;
+    color: #0d1a26;
+}
+
+.chat-body {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.message {
+    max-width: 80%;
+    padding: 1rem;
+    border-radius: 12px;
+    position: relative;
+    animation: messageAppear 0.3s ease;
+}
+
+@keyframes messageAppear {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message.nexmind {
+    align-self: flex-start;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.message.user {
+    align-self: flex-end;
+    background: var(--accent-color);
+    color: white;
+}
+
+.message-timestamp {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.5rem;
+}
+
+.message-content p {
+    margin: 0.4rem 0;
+    line-height: 1.5;
+}
+
+.chat-input {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 1.2rem;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    gap: 0.5rem;
+}
+
+#chatInput {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    background: var(--background-dark);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+#chatInput:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.send-button {
+    background: var(--accent-color);
+    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-button:hover {
+    background: #3679b3;
+}
+
+.typing-indicator {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.typing-indicator.visible {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .nexmind-chat {
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+}
+
+/*SVG DO NEXMIND*/
+.chatbot-icon {
+    position: fixed;
+    right: 20px;
+    bottom: 70px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+    z-index: 1000;
+  }
+  
+  .chatbot-circle {
+    fill: #3679b3;
+    stroke: #6A1B9A;  /* Roxo mais escuro */
+    stroke-width: 2;
+    transition: fill 0.3s ease;
+  }
+  
+  .chatbot-symbol {
+    fill: none;
+    stroke: #FFFFFF;  /* Branco */
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  
+  .chatbot-icon:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 8px rgba(138,43,226,0.3));
+  }
+  
+  .chatbot-icon:hover .chatbot-circle {
+    fill: #8A2BE2; 
+    stroke: #6A1B9A;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  .chatbot-icon {
+    animation: float 3s ease-in-out infinite;
+  }
