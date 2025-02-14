@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 def gemini(message):
 
-    genai.configure(api_key='AIzaSyDE983mH50QY3nJTR7SketUwPZcvjzAe9o')
+    genai.configure(api_key='')
         # Create the model
     generation_config = {
       "temperature": 0.9,
