@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Monitoramento de Sensores</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Gerar Relatório de Sensores</h1>
+    <button id="generateReport">Gerar Relatório</button>
+
+    <script>
+        document.getElementById('generateReport').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text('Relatório de Monitoramento de Sensores', 10, 10);
+            doc.text('Período: 15/02/2025 a 16/02/2025', 10, 20);
+
+            // Adicionando uma tabela simples
+            const tableData = [
+                ['Parâmetro', 'Valor Mínimo', 'Valor Máximo', 'Média'],
+                ['Corrente', '1.5 A', '2.8 A', '2.1 A'],
+                ['Vibração', '0.02 m/s²', '0.15 m/s²', '0.08 m/s²'],
+                ['Temperatura', '18°C', '30°C', '24°C'],
+                ['Rotação', '100 RPM', '300 RPM', '200 RPM'],
+                ['Status', 'OK', 'Alerta', '-']
+            ];
+
+            doc.autoTable({
+                head: tableData[0],
+                body: tableData.slice(1)
+            });
+
+            // Salvando o PDF
+            doc.save('relatorio_sensor.pdf');
+        });
+    </script>
+</body>
+</html>

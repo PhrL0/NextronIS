@@ -3,6 +3,11 @@ from flask_cors import CORS
 import random
 from traningModel import Anomalyprediction  
 from APIgemini import gemini
+from datetime import datetime
+from controller import Controller
+
+
+manager = Controller()
 
 app = Flask(__name__)
 CORS(app)
@@ -12,12 +17,13 @@ def getSensorData():
     vibracao = round(random.uniform(0.0, 3.5), 2)
     rotacao = round(random.uniform(0.0, 5.5), 2)
     temperatura = round(random.uniform(30, 100), 2)
-
+    data = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  
+    
     dados = [[corrente, vibracao, rotacao, temperatura]]
 
    
     statusInferido = Anomalyprediction(dados)
-
+    manager.controllerInsertDB(temperatura,corrente,rotacao,vibracao,data,int(statusInferido))
     return {
         "corrente": corrente,
         "vibracao": vibracao,
@@ -38,12 +44,19 @@ def health_check():
 def getDataFront():
 
     dados = request.json
-
     promptValue = dados.get('prompt')
-
     castingPrompt = str(promptValue)
-    
     return jsonify(gemini(castingPrompt))
+
+@app.route('/reports',methods=['POST'])
+def reportsConsult():
+    
+    dados = request.json
+    
+    print(dados)
+    return jsonify(manager.selectAndReports(dados))
+    
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
