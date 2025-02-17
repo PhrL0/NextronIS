@@ -7,7 +7,9 @@
     <title>Nextron IS - Monitoramento Industrial</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/style.css">
+
     <script src="../JS/script.js" defer></script>
 </head>
 
@@ -83,7 +85,7 @@
                 ▶ Iniciar Monitoramento
             </button>
         </div>
-        <svg class="chatbot-icon"   id="chatbot-icon" width="60" height="60" viewBox="0 0 60 60">
+        <svg class="chatbot-icon" id="chatbot-icon" width="60" height="60" viewBox="0 0 60 60">
             <circle class="chatbot-circle" cx="30" cy="30" r="28" />
             <path class="chatbot-symbol" d="M20 25h20v12H20V25zm-2 14h24v4H18v-4zm6-18h12v4H24v-4z" />
             <path class="chatbot-symbol" d="M30 42l-5-4h10l-5 4z" />
@@ -126,8 +128,55 @@
             </div>
         </div>
     </div>
-    <footer class="footer">
-        <span>© 2024 Nextron Industrial Systems. Todos os direitos reservados.</span>
+    <footer class="main-footer">
+        <div class="footer-content">
+            <!-- Seção da Logo -->
+            <div class="footer-section logo-section">
+                <a href="#" class="logo">
+                    <img src="../download.png" alt="Nextron IS Logo" class="logo-img">
+                    <span class="logo-text">Nextron IS</span>
+                </a>
+                <p class="footer-slogan">Soluções Inteligentes em Tecnologia</p>
+            </div>
+
+            <!-- Links Úteis -->
+            <div class="footer-section">
+                <h4 class="footer-title">Relatórios</h4>
+                <ul class="footer-links">
+                    <li><a href="/relatorios/diarios" class="footer-link">Diários</a></li>
+                    <li><a href="/relatorios/mensais" class="footer-link">Mensais</a></li>
+                    <li><a href="/relatorios/personalizados" class="footer-link">Personalizados</a></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="footer-section">
+                <h4 class="footer-title">Contato</h4>
+                <ul class="footer-contact">
+                    <li class="contact-item">
+                        <i class="material-icons">mail_outline</i>
+                        suporte@nextron.com
+                    </li>
+                    <li class="contact-item">
+                        <i class="material-icons">phone_enabled</i>
+                        +55 (11) 99999-8888
+                    </li>
+                    <li class="contact-item">
+                        <i class="material-icons">location_on</i>
+                        São Carlos - SP
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p class="copyright">&copy; 2024 Nextron IS. Todos os direitos reservados.</p>
+            <div class="legal-links">
+                <a href="/politica-de-privacidade" class="legal-link">Política de Privacidade</a>
+                <a href="/termos-de-uso" class="legal-link">Termos de Uso</a>
+            </div>
+        </div>
     </footer>
 </body>
 

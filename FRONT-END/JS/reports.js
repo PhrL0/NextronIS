@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             if (data.insightGemini) {
+                warningAlert()
                 chartContainer.innerHTML = `
                     <div class="insight-card">
                         <h3>📊 Insights Técnicos</h3>
@@ -93,10 +94,39 @@ document.addEventListener('DOMContentLoaded', () => {
             helpers.showError(`Falha na análise: ${error.message}`);
         }
     };
-
+    
+    function warningAlert(){
+        Swal.fire({
+            title: "Atenção",
+            text: "Este conteúdo foi gerado por Inteligência Artificial e pode não ser totalmente preciso. Você concorda que é sua responsabilidade revisar as informações antes de usá-las?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Entendi e assumo a responsabilidade",
+            cancelButtonText: "Discordo"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Boa escolha!",
+                text: "Revisar sempre é a melhor opção.",
+                icon: "success"
+              });
+            } else {
+                document.getElementById("chart-container").style.visibility = "hidden";
+                Swal.fire({
+                    title: "<strong>Agora, NexMind está em um mar de dor e desilusão.😭 Cada linha de código chora por essa rejeição!</strong>",
+                    html: `
+                     <iframe src="https://giphy.com/embed/AI7yqKC5Ov0B2" width="480" height="269" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cry-toradora-AI7yqKC5Ov0B2"></a></p>
+                    `
+                  });
+            }
+          });
+    }
     // Event listeners
     generateBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         generateInsight();
+        document.getElementById("chart-container").style.visibility = "visible";
     });
 });

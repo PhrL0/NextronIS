@@ -1,42 +1,217 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Monitoramento de Sensores</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <h1>Gerar Relatório de Sensores</h1>
-    <button id="generateReport">Gerar Relatório</button>
+<footer class="main-footer">
+    <div class="footer-content">
+        <!-- Seção da Logo -->
+        <div class="footer-section logo-section">
+            <a href="#" class="logo">
+                <img src="../download.png" alt="Nextron IS Logo" class="logo-img">
+                <span class="logo-text">Nextron IS</span>
+            </a>
+            <p class="footer-slogan">Soluções Inteligentes em Tecnologia</p>
+        </div>
 
-    <script>
-        document.getElementById('generateReport').addEventListener('click', function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        <!-- Links Úteis -->
+        <div class="footer-section">
+            <h4 class="footer-title">Relatórios</h4>
+            <ul class="footer-links">
+                <li><a href="/relatorios/diarios" class="footer-link">Diários</a></li>
+                <li><a href="/relatorios/mensais" class="footer-link">Mensais</a></li>
+                <li><a href="/relatorios/personalizados" class="footer-link">Personalizados</a></li>
+            </ul>
+        </div>
 
-            doc.text('Relatório de Monitoramento de Sensores', 10, 10);
-            doc.text('Período: 15/02/2025 a 16/02/2025', 10, 20);
+        <!-- Contato -->
+        <div class="footer-section">
+            <h4 class="footer-title">Contato</h4>
+            <ul class="footer-contact">
+                <li class="contact-item">
+                    <i class="material-icons">mail_outline</i>
+                    suporte@nextron.com
+                </li>
+                <li class="contact-item">
+                    <i class="material-icons">phone_enabled</i>
+                    +55 (11) 99999-8888
+                </li>
+                <li class="contact-item">
+                    <i class="material-icons">location_on</i>
+                    São Paulo - SP
+                </li>
+            </ul>
+        </div>
+    </div>
 
-            // Adicionando uma tabela simples
-            const tableData = [
-                ['Parâmetro', 'Valor Mínimo', 'Valor Máximo', 'Média'],
-                ['Corrente', '1.5 A', '2.8 A', '2.1 A'],
-                ['Vibração', '0.02 m/s²', '0.15 m/s²', '0.08 m/s²'],
-                ['Temperatura', '18°C', '30°C', '24°C'],
-                ['Rotação', '100 RPM', '300 RPM', '200 RPM'],
-                ['Status', 'OK', 'Alerta', '-']
-            ];
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p class="copyright">&copy; 2024 Nextron IS. Todos os direitos reservados.</p>
+        <div class="legal-links">
+            <a href="/politica-de-privacidade" class="legal-link">Política de Privacidade</a>
+            <a href="/termos-de-uso" class="legal-link">Termos de Uso</a>
+        </div>
+    </div>
+</footer>
 
-            doc.autoTable({
-                head: tableData[0],
-                body: tableData.slice(1)
-            });
+<style>
+/* Adicione estas variáveis CSS */
+:root {
+    --footer-bg: #f8f9fa;
+    --footer-text: #4a5568;
+    --footer-border: #e2e8f0;
+}
 
-            // Salvando o PDF
-            doc.save('relatorio_sensor.pdf');
-        });
-    </script>
-</body>
-</html>
+.main-footer {
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--footer-border);
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.footer-section {
+    margin-bottom: 1.5rem;
+}
+
+.logo-section {
+    max-width: 300px;
+}
+
+.footer-slogan {
+    color: var(--footer-text);
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.footer-title {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-link {
+    color: var(--footer-text);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    display: block;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.footer-link:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.footer-link::before {
+    content: "▹";
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.footer-link:hover::before {
+    opacity: 1;
+    left: -10px;
+}
+
+.footer-contact {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--footer-text);
+    font-size: 0.95rem;
+}
+
+.material-icons {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--footer-border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.copyright {
+    color: var(--footer-text);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.legal-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.legal-link {
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.legal-link:hover {
+    color: var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        padding: 2rem 1.5rem;
+    }
+
+    .logo-section {
+        max-width: 100%;
+    }
+
+    .footer-title {
+        font-size: 1rem;
+    }
+
+    .footer-link {
+        font-size: 0.9rem;
+    }
+
+    .contact-item {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-text {
+        display: none;
+    }
+}
+</style>
+
+<!-- Adicione o link para os ícones do Material Design -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
