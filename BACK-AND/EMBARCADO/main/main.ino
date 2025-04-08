@@ -1,28 +1,22 @@
 #include "Sensor_DS18B20.h"
+#include "Mqtt_Service.h"
+#include "Converter.h"
 
-const int PINO_TRIG = 21; // Pino D4 conectado ao TRIG do HC-SR04
-const int PINO_ECHO = 19; // Pino D2 conectado ao ECHO do HC-SR04
+const char* ssid = "rede";
+const char* password = "senha";
+const char* broker = "ip";
+
 void setup() {
   Serial.begin(115200);
   startTemperature();
-  pinMode(PINO_TRIG, OUTPUT); // Configura o pino TRIG como saída
-  pinMode(PINO_ECHO, INPUT); // Configura o pino ECHO como entrada
-
+  setup_wifi(ssid,password);
+  mqtt_setup(broker);
 }
 
 void loop() {
+  mqtt_loop();
   float temp = readTemperature();
-   digitalWrite(PINO_TRIG, LOW);
-  delayMicroseconds(2);
-  digitalWrite(PINO_TRIG, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(PINO_TRIG, LOW);
-  
-  long duracao = pulseIn(PINO_ECHO, HIGH); // Mede o tempo de resposta do ECHO  
-  float distancia = (duracao * 0.0343) / 2;// Calcula a distância usando a velocidade do som (aproximadamente 343 m/s)
-  Serial.print("Distância: ");
-  Serial.print(distancia);
-  Serial.println(" cm");
+  mqtt_publish("esp32/sensor",floatToStr(temp,2));
   Serial.print("Temperautra:");
   Serial.println(readTemperature());
   delay(2000);
