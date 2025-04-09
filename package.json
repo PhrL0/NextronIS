@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@fastify/websocket": "^11.0.2",
+    "fastify": "^5.2.2",
+    "mqtt": "^5.10.4",
+    "prisma": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/ws": "^8.18.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+  "dev": "ts-node BACK-AND/FASTIFY/server.ts"
+}
+}
