@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DB=sensor_data
+    depends_on:
+      - mysql
+    networks:
+      - sensor-network  # Referência à rede
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=sensor_data
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - sensor-network  # Mesma rede
+    command: --default-authentication-plugin=mysql_native_password
+
+# Definição explícita da rede
+networks:
+  sensor-network:
+    driver: bridge  # Opcional (bridge é o padrão)
+
+volumes:
+  mysql-data:
