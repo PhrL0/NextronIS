@@ -1,0 +1,133 @@
+[
+    {
+        "id": "318a8dc1f8efbb9f",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "52bab3670e2ce5d7",
+        "type": "mqtt in",
+        "z": "318a8dc1f8efbb9f",
+        "name": "",
+        "topic": "esp32/sensor",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "9c0072d944f25c69",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "abc217de10833909",
+                "51219fca86daa3e4"
+            ]
+        ]
+    },
+    {
+        "id": "abc217de10833909",
+        "type": "function",
+        "z": "318a8dc1f8efbb9f",
+        "name": "function 1",
+        "func": "let dados = JSON.parse(msg.payload);\n\nlet montaJson = {\n    \"temperatura\": dados\n}\n\nmsg.payload = montaJson\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 300,
+        "wires": [
+            [
+                "3ba9b0390e8103fb",
+                "8fdecf95beb081f4"
+            ]
+        ]
+    },
+    {
+        "id": "3ba9b0390e8103fb",
+        "type": "websocket out",
+        "z": "318a8dc1f8efbb9f",
+        "name": "",
+        "server": "e82498ea9c51b8ee",
+        "client": "",
+        "x": 790,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8fdecf95beb081f4",
+        "type": "debug",
+        "z": "318a8dc1f8efbb9f",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "51219fca86daa3e4",
+        "type": "debug",
+        "z": "318a8dc1f8efbb9f",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "9c0072d944f25c69",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.110.12.51",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e82498ea9c51b8ee",
+        "type": "websocket-listener",
+        "path": "/ws/data",
+        "wholemsg": "false"
+    }
+]

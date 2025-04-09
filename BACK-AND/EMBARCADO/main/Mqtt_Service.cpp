@@ -17,7 +17,7 @@ void setup_wifi(const char* ssid, const char* password) {
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Tentando conectar ao MQTT... ");
-    String clientId = "ESP32Pateta-";
+    String clientId = "ESP32";
     clientId += String(random(0xffff), HEX);
     if (client.connect(clientId.c_str())) {
       Serial.println("Conectado!");
