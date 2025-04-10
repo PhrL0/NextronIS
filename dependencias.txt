@@ -1,0 +1,23 @@
+# 🚀 Dependências do projeto NextronIS
+
+# Inicialização do projeto
+npm init -y
+
+# 🧠 TypeScript + compilador
+npm install typescript ts-node --save-dev
+
+# 🧰 Fastify (Framework HTTP)
+npm install fastify
+
+# 📡 Cliente MQTT
+npm install mqtt
+
+# 🌐 WebSocket com 'ws'
+npm install ws
+
+# 📚 Tipagens para desenvolvimento com TypeScript
+npm install @types/node @types/ws --save-dev
+
+# 🧹 Utilitários recomendados (opcional, mas úteis)
+npm install dotenv # para variáveis de ambiente
+npm install nodemon --save-dev # para reinício automático do servidor

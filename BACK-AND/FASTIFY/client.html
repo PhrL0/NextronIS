@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // client.ts
+    const socket = new WebSocket('ws://localhost:8080')
+        
+    socket.onopen = () => {
+      console.log('✅ Conectado ao servidor WebSocket')
+      socket.send('Olá servidor!')
+    }
+    
+    socket.onmessage = (event) => {
+      console.log('📬 Mensagem recebida:', event.data)
+    }
+    
+    socket.onerror = (err) => {
+      console.error('❌ Erro no WebSocket:', err)
+    }
+    
+    </script>
+</body>
+</html>
