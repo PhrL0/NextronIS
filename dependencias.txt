@@ -21,3 +21,28 @@ npm install @types/node @types/ws --save-dev
 # 🧹 Utilitários recomendados (opcional, mas úteis)
 npm install dotenv # para variáveis de ambiente
 npm install nodemon --save-dev # para reinício automático do servidor
+
+# Core do servidor
+fastify
+fastify-websocket
+
+# MQTT client
+mqtt
+
+# Integração com a API Gemini (Google Generative AI)
+@google/generative-ai
+
+# Tipagem e suporte para TypeScript
+typescript
+ts-node
+@types/node
+
+# Variáveis de ambiente
+dotenv
+
+# (Opcional) Linter e qualidade de código
+eslint
+prettier
+
+# (Se estiver usando ESModules ou import/export mesmo fora de React)
+tsconfig-paths
