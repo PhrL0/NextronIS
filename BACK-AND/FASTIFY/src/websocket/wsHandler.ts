@@ -1,9 +1,7 @@
 // wsHandler.ts
 import { WebSocket } from 'ws'
 
-// Mapa de clientes conectados com um ID simples
 const clients = new Map<string, WebSocket>()
-// Gera um ID único para cada cliente
 function generateClientId(): string {
   return Math.random().toString(36).substring(2, 10)
 }
@@ -20,7 +18,7 @@ export const wsHandler = {
     clients.delete(id)
     console.log(`❌ Cliente removido: ${id}`)
   },
-  existsClient: (clients: Map<string, WebSocket>): boolean => {
+  existsClient: (): boolean => {
     const isConnected = clients.size > 0;
     if (!isConnected) {
       console.warn("⚠️ Não há clientes conectados!");

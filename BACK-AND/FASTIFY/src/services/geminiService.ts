@@ -7,12 +7,11 @@ const generationConfig: GenerationConfig = {
     temperature: 0.9,
     topP: 0.95,
     topK: 64,
-    maxOutputTokens: 65536,
+    maxOutputTokens: 1000,
     responseMimeType: "text/plain",
 };
 const genAI = new GoogleGenerativeAI(key)
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-thinking-exp-01-21",generationConfig})
-
 
 export const geminiService = {
     askGemini: async (message: string): Promise<string> =>{
