@@ -102,7 +102,7 @@ function renderMessage(message: Message) {
     return (
       <Flex align="start" justify="end" className="mb-4">
         <div className="w-3/4 flex justify-end px-2 shadow-none mt-1">
-          <div className="p-3 w-max bg-neutral-100 rounded-xl">
+          <div className="p-3 w-max bg-neutral-100 dark:bg-neutral-900 rounded-xl">
             {message.message}
           </div>
         </div>

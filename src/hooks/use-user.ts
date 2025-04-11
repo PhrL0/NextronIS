@@ -8,10 +8,12 @@ export function useUserDecode() {
   useEffect(() => {
     setUser(undefined);
     const token = localStorage.getItem("token");
+    if (!token) {
+      localStorage.removeItem("token");
+      return;
+    }
 
-    if (!token) return;
     const userDecoded = jwtDecode(token!);
-
     if (userDecoded.exp! < Date.now() / 1000) {
       localStorage.removeItem("token");
       return;

@@ -84,7 +84,7 @@ const RegisterPage: React.FC = () => {
                 <Typography.Text className="text-sm text-neutral-400">
                   Ja tem uma conta?{" "}
                   <Link className="text-green-600" to="/login">
-                    Registre-se
+                    Entrar
                   </Link>
                 </Typography.Text>
               </div>

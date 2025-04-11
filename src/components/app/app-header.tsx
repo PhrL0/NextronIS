@@ -8,6 +8,7 @@ import {
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 import { Button } from "../ui/button";
+import { ModeToggle } from "../ui/mode-toggle";
 import { useSidebar } from "../ui/sidebar";
 
 export const AppHeader = () => {
@@ -27,7 +28,7 @@ export const AppHeader = () => {
     });
 
   return (
-    <Header>
+    <Header className="justify-between">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem onClick={toggleSidebar}>
@@ -36,7 +37,7 @@ export const AppHeader = () => {
             </Button>
           </BreadcrumbItem>
           {breadcrumbs &&
-            breadcrumbs.map((b, i) => (
+            breadcrumbs.map((b) => (
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem key={b.title}>
@@ -48,6 +49,7 @@ export const AppHeader = () => {
             ))}
         </BreadcrumbList>
       </Breadcrumb>
+      <ModeToggle />
     </Header>
   );
 };
