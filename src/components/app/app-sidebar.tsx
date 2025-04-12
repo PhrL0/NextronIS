@@ -32,6 +32,7 @@ import {
 
 export const AppSidebar = () => {
   const navigate = useNavigate();
+  const { open } = useSidebar();
 
   const sidebarItems = useMemo(
     () => [
@@ -65,7 +66,9 @@ export const AppSidebar = () => {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader></SidebarHeader>
+      <SidebarHeader className="m-2">
+        <Typography.Title level={3}>{open ? 'Nextron' : 'N'}</Typography.Title>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>

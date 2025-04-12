@@ -2,6 +2,7 @@
 import { machineApi } from '@/api';
 import { DataTable } from '@/components/data-table/data-table';
 import { Flex } from '@/components/layout';
+import { Loading } from '@/components/layout/loading';
 import Typography from '@/components/typography';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { MachineGet200ResponseMachinesInner } from '@/generate-api';
@@ -44,12 +45,18 @@ const DashboardPage: React.FC = () => {
           </ToggleGroupItem>
         </ToggleGroup>
       </Flex>
-      {view === 'table' ? (
-        <div className="grid grid-cols-2 content-between gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-          {machines.map((m) => (
-            <MachineCard machine={m} />
-          ))}
-        </div>
+      {view === 'card' ? (
+        loading ? (
+          <Flex className="mt-16 size-full" align="center" justify="center">
+            <Loading variant="medium" title="Carregando..." />
+          </Flex>
+        ) : (
+          <div className="grid w-full grid-cols-1 content-between gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            {machines.map((m) => (
+              <MachineCard machine={m} />
+            ))}
+          </div>
+        )
       ) : (
         <DataTable loading={loading} data={machines} size="xs" />
       )}
