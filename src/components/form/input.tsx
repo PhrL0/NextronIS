@@ -1,42 +1,39 @@
-import { cn } from "@/lib/utils";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Eye, EyeOff } from "lucide-react";
-import * as React from "react";
+import { cn } from '@/lib/utils';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { Eye, EyeOff } from 'lucide-react';
+import * as React from 'react';
 
 const inputVariants = cva(
-  "flex w-full rounded-md border border-input bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+  'flex w-full rounded-md border border-input bg-background text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       size: {
-        default: "h-10 px-3 py-2",
-        sm: "h-8 px-2 py-1 text-xs",
-        lg: "h-12 px-4 py-3 text-base",
+        default: 'h-10 px-3 py-2',
+        sm: 'h-8 px-2 py-1 text-xs',
+        lg: 'h-12 px-4 py-3 text-base'
       },
       variant: {
-        default: "border-input",
-        filled: "border-transparent bg-muted/80 hover:bg-muted",
-        outline: "border-2",
+        default: 'border-input',
+        filled: 'border-transparent bg-muted/80 hover:bg-muted',
+        outline: 'border-2'
       },
       status: {
-        default: "",
-        error: "border-destructive focus-visible:ring-destructive",
-        success: "border-green-500 focus-visible:ring-green-500",
-        warning: "border-amber-500 focus-visible:ring-amber-500",
-      },
+        default: '',
+        error: 'border-destructive focus-visible:ring-destructive',
+        success: 'border-green-500 focus-visible:ring-green-500',
+        warning: 'border-amber-500 focus-visible:ring-amber-500'
+      }
     },
     defaultVariants: {
-      size: "default",
-      variant: "default",
-      status: "default",
-    },
+      size: 'default',
+      variant: 'default',
+      status: 'default'
+    }
   }
 );
 
 export interface InputProps
-  extends Omit<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      "size" | "prefix" | "suffix"
-    >,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'suffix'>,
     VariantProps<typeof inputVariants> {
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
@@ -63,11 +60,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const [inputValue, setInputValue] = React.useState(value || "");
+    const [inputValue, setInputValue] = React.useState(value || '');
     const [showPassword, setShowPassword] = React.useState(false);
 
     React.useEffect(() => {
-      setInputValue(value || "");
+      setInputValue(value || '');
     }, [value]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,12 +73,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     const handleClear = () => {
-      setInputValue("");
+      setInputValue('');
       onClear?.();
 
       // Create a synthetic event to trigger onChange
       const syntheticEvent = {
-        target: { value: "" },
+        target: { value: '' }
       } as React.ChangeEvent<HTMLInputElement>;
 
       onChange?.(syntheticEvent);
@@ -92,22 +89,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     // Determine the actual input type
-    const inputType = type === "password" && showPassword ? "text" : type;
+    const inputType = type === 'password' && showPassword ? 'text' : type;
 
     // Password visibility toggle
     const passwordToggle =
-      type === "password" ? (
+      type === 'password' ? (
         <button
           type="button"
           onClick={togglePasswordVisibility}
-          className="flex items-center justify-center text-muted-foreground hover:text-foreground"
+          className="text-muted-foreground hover:text-foreground flex items-center justify-center"
           tabIndex={-1}
         >
-          {showPassword ? (
-            <EyeOff className="h-4 w-4" />
-          ) : (
-            <Eye className="h-4 w-4" />
-          )}
+          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
         </button>
       ) : null;
 
@@ -117,7 +110,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <button
           type="button"
           onClick={handleClear}
-          className="flex items-center justify-center text-muted-foreground hover:text-foreground"
+          className="text-muted-foreground hover:text-foreground flex items-center justify-center"
           tabIndex={-1}
         >
           <svg
@@ -149,16 +142,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div
-        className={cn(
-          "relative flex items-center rounded-md",
-          disabled && "opacity-50 cursor-not-allowed",
-          className
-        )}
+        className={cn('relative flex items-center rounded-md', disabled && 'cursor-not-allowed opacity-50', className)}
       >
         {prefix && (
-          <div className="absolute left-3 flex h-full items-center justify-center text-muted-foreground">
-            {prefix}
-          </div>
+          <div className="text-muted-foreground absolute left-3 flex h-full items-center justify-center">{prefix}</div>
         )}
         <input
           type={inputType}
@@ -167,14 +154,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           disabled={disabled}
           className={cn(
             inputVariants({ size, variant, status }),
-            prefix && "pl-9",
-            (suffix || passwordToggle || clearButton) && "pr-9"
+            prefix && 'pl-9',
+            (suffix || passwordToggle || clearButton) && 'pr-9'
           )}
           ref={ref}
           {...props}
         />
         {(suffix || passwordToggle || clearButton) && (
-          <div className="absolute right-3 flex h-full items-center justify-center gap-1 text-muted-foreground">
+          <div className="text-muted-foreground absolute right-3 flex h-full items-center justify-center gap-1">
             {combinedSuffix}
           </div>
         )}
@@ -183,6 +170,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export { Input };

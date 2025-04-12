@@ -1,96 +1,96 @@
-"use client"
+'use client';
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from 'react';
 
 export type AffixProps = {
-  offsetTop?: number
-  offsetBottom?: number
-  target?: () => Window | HTMLElement
-  onChange?: (affixed: boolean) => void
-  className?: string
-  style?: React.CSSProperties
-  children?: React.ReactNode
-}
+  offsetTop?: number;
+  offsetBottom?: number;
+  target?: () => Window | HTMLElement;
+  onChange?: (affixed: boolean) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+};
 
 export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(
   ({ offsetTop, offsetBottom, target = () => window, onChange, className, style, children, ...props }, ref) => {
-    const [affixed, setAffixed] = useState(false)
-    const [position, setPosition] = useState<React.CSSProperties>({})
-    const placeholderRef = useRef<HTMLDivElement>(null)
-    const fixedNodeRef = useRef<HTMLDivElement>(null)
-    const prevAffixed = useRef(affixed)
+    const [affixed, setAffixed] = useState(false);
+    const [position, setPosition] = useState<React.CSSProperties>({});
+    const placeholderRef = useRef<HTMLDivElement>(null);
+    const fixedNodeRef = useRef<HTMLDivElement>(null);
+    const prevAffixed = useRef(affixed);
 
     useEffect(() => {
-      const targetNode = target()
+      const targetNode = target();
 
       const getOffset = (element: HTMLElement) => {
-        const rect = element.getBoundingClientRect()
+        const rect = element.getBoundingClientRect();
 
         if (targetNode === window) {
           return {
             top: rect.top,
-            bottom: document.documentElement.clientHeight - rect.bottom,
-          }
+            bottom: document.documentElement.clientHeight - rect.bottom
+          };
         }
 
-        const targetRect = (targetNode as HTMLElement).getBoundingClientRect()
+        const targetRect = (targetNode as HTMLElement).getBoundingClientRect();
         return {
           top: rect.top - targetRect.top,
-          bottom: targetRect.bottom - rect.bottom,
-        }
-      }
+          bottom: targetRect.bottom - rect.bottom
+        };
+      };
 
       const handleScroll = () => {
-        if (!placeholderRef.current || !fixedNodeRef.current) return
+        if (!placeholderRef.current || !fixedNodeRef.current) return;
 
-        const { top, bottom } = getOffset(placeholderRef.current)
+        const { top, bottom } = getOffset(placeholderRef.current);
 
         if (offsetTop !== undefined && top <= offsetTop) {
-          const width = placeholderRef.current.offsetWidth
-          const height = placeholderRef.current.offsetHeight
+          const width = placeholderRef.current.offsetWidth;
+          const height = placeholderRef.current.offsetHeight;
 
-          setAffixed(true)
+          setAffixed(true);
           setPosition({
-            position: "fixed",
+            position: 'fixed',
             top: offsetTop,
             width,
-            height,
-          })
+            height
+          });
         } else if (offsetBottom !== undefined && bottom <= offsetBottom) {
-          const width = placeholderRef.current.offsetWidth
-          const height = placeholderRef.current.offsetHeight
+          const width = placeholderRef.current.offsetWidth;
+          const height = placeholderRef.current.offsetHeight;
 
-          setAffixed(true)
+          setAffixed(true);
           setPosition({
-            position: "fixed",
+            position: 'fixed',
             bottom: offsetBottom,
             width,
-            height,
-          })
+            height
+          });
         } else {
-          setAffixed(false)
-          setPosition({})
+          setAffixed(false);
+          setPosition({});
         }
-      }
+      };
 
-      targetNode.addEventListener("scroll", handleScroll)
-      window.addEventListener("resize", handleScroll)
+      targetNode.addEventListener('scroll', handleScroll);
+      window.addEventListener('resize', handleScroll);
 
       // Initial check
-      handleScroll()
+      handleScroll();
 
       return () => {
-        targetNode.removeEventListener("scroll", handleScroll)
-        window.removeEventListener("resize", handleScroll)
-      }
-    }, [offsetBottom, offsetTop, target])
+        targetNode.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', handleScroll);
+      };
+    }, [offsetBottom, offsetTop, target]);
 
     useEffect(() => {
       if (prevAffixed.current !== affixed && onChange) {
-        onChange(affixed)
+        onChange(affixed);
       }
-      prevAffixed.current = affixed
-    }, [affixed, onChange])
+      prevAffixed.current = affixed;
+    }, [affixed, onChange]);
 
     return (
       <div ref={placeholderRef} {...props}>
@@ -100,17 +100,16 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(
           className={className}
           style={{
             ...style,
-            ...position,
+            ...position
           }}
         >
           {children}
         </div>
       </div>
-    )
-  },
-)
+    );
+  }
+);
 
-Affix.displayName = "Affix"
+Affix.displayName = 'Affix';
 
-export default Affix
-
+export default Affix;

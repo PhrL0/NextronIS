@@ -1,13 +1,12 @@
-import Title from "./title"
-import Text from "./text"
-import Paragraph from "./paragraph"
+import Title from './title';
+import Text from './text';
+import Paragraph from './paragraph';
 
 const Typography = {
   Title,
   Text,
-  Paragraph,
-}
+  Paragraph
+};
 
-export { Title, Text, Paragraph }
-export default Typography
-
+export { Title, Text, Paragraph };
+export default Typography;

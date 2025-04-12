@@ -1,34 +1,22 @@
-"use client";
+'use client';
 
-import { Flex } from "@/components/layout/flex";
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { capitalize, cn, isNestedObject } from "@/lib/utils";
-import type { Table as TableType } from "@tanstack/react-table";
-import { flexRender } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp, SearchX } from "lucide-react";
-import { JSX, useState } from "react";
+import { Flex } from '@/components/layout/flex';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { capitalize, cn, isNestedObject } from '@/lib/utils';
+import type { Table as TableType } from '@tanstack/react-table';
+import { flexRender } from '@tanstack/react-table';
+import { ChevronDown, ChevronUp, SearchX } from 'lucide-react';
+import { JSX, useState } from 'react';
 
 interface DataTableViewProps<TData> {
   table: TableType<TData>;
   size: string;
 }
 
-export function DataTableView<TData>({
-  table,
-  size,
-}: DataTableViewProps<TData>) {
+export function DataTableView<TData>({ table, size }: DataTableViewProps<TData>) {
   // State to track expanded rows
-  const [expandedRows, setExpandedRows] = useState<
-    Record<string, Record<string, boolean>>
-  >({});
+  const [expandedRows, setExpandedRows] = useState<Record<string, Record<string, boolean>>>({});
 
   // Function to toggle row expansion for a specific column
   const toggleRowExpansion = (rowId: string, columnId: string) => {
@@ -38,8 +26,8 @@ export function DataTableView<TData>({
         ...prev,
         [rowId]: {
           ...rowExpansions,
-          [columnId]: !rowExpansions[columnId],
-        },
+          [columnId]: !rowExpansions[columnId]
+        }
       };
     });
   };
@@ -58,12 +46,7 @@ export function DataTableView<TData>({
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </TableHead>
                 );
               })}
@@ -74,24 +57,16 @@ export function DataTableView<TData>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <>
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className={cn(`!text-${size}`)}>
                       {isNestedObject(cell.getValue()) ? (
                         <ExpandableButton
-                          onClick={() =>
-                            toggleRowExpansion(row.id, cell.column.id)
-                          }
+                          onClick={() => toggleRowExpansion(row.id, cell.column.id)}
                           isOpen={isCellExpanded(row.id, cell.column.id)}
                         />
                       ) : (
-                        flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )
+                        flexRender(cell.column.columnDef.cell, cell.getContext())
                       )}
                     </TableCell>
                   ))}
@@ -103,19 +78,11 @@ export function DataTableView<TData>({
 
                   if (isNestedObject(value) && isExpanded) {
                     return (
-                      <TableRow
-                        key={`${row.id}-${cell.column.id}-detail`}
-                        className="bg-muted/10"
-                      >
-                        <TableCell
-                          colSpan={row.getVisibleCells().length}
-                          className="p-0"
-                        >
+                      <TableRow key={`${row.id}-${cell.column.id}-detail`} className="bg-muted/10">
+                        <TableCell colSpan={row.getVisibleCells().length} className="p-0">
                           <div className="mb-8">
                             {renderNestedTable(
-                              typeof value === "object" && value !== null
-                                ? value
-                                : {},
+                              typeof value === 'object' && value !== null ? value : {},
                               `${capitalize(cell.column.id)} - Detalhes:`
                             )}
                           </div>
@@ -129,10 +96,7 @@ export function DataTableView<TData>({
             ))
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={table.getAllColumns().length}
-                className="h-24 text-center"
-              >
+              <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
                 <Flex
                   className="text-muted-foreground stroke-muted-foreground p-6"
                   align="center"
@@ -152,25 +116,15 @@ export function DataTableView<TData>({
   );
 }
 
-const ExpandableButton = ({
-  isOpen,
-  onClick,
-}: {
-  onClick: () => void;
-  isOpen: boolean;
-}) => {
+const ExpandableButton = ({ isOpen, onClick }: { onClick: () => void; isOpen: boolean }) => {
   return (
     <Button
       variant="ghost"
       size="sm"
-      className="flex items-center justify-between w-full p-1 h-auto text-xs"
+      className="flex h-auto w-full items-center justify-between p-1 text-xs"
       onClick={onClick}
     >
-      {isOpen ? (
-        <ChevronUp className="h-3 w-3" />
-      ) : (
-        <ChevronDown className="h-3 w-3" />
-      )}
+      {isOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
     </Button>
   );
 };
@@ -186,10 +140,7 @@ function ExpandableCell({ value }: { value: object | object[] }) {
   );
 }
 
-const renderNestedTable = (
-  data: object | object[],
-  title?: string
-): JSX.Element | null => {
+const renderNestedTable = (data: object | object[], title?: string): JSX.Element | null => {
   if (!data) return null;
 
   // Handle array data
@@ -200,12 +151,12 @@ const renderNestedTable = (
   // Handle object data
   return (
     <div className="p-2">
-      {title && <div className="text-sm font-medium mb-2">{title}</div>}
+      {title && <div className="mb-2 text-sm font-medium">{title}</div>}
       <Table className="border-b">
         <TableHeader className="bg-muted/50">
           <TableRow>
             {Object.keys(data).map((key) => (
-              <TableHead key={key} className="text-xs p-2">
+              <TableHead key={key} className="p-2 text-xs">
                 {capitalize(key)}
               </TableHead>
             ))}
@@ -215,12 +166,8 @@ const renderNestedTable = (
           <TableRow>
             {Object.entries(data).map(([key, value]) => {
               return (
-                <TableCell key={key} className="text-xs p-2">
-                  {isNestedObject(value) ? (
-                    <ExpandableCell value={value} />
-                  ) : (
-                    String(value)
-                  )}
+                <TableCell key={key} className="p-2 text-xs">
+                  {isNestedObject(value) ? <ExpandableCell value={value} /> : String(value)}
                 </TableCell>
               );
             })}
@@ -231,30 +178,26 @@ const renderNestedTable = (
   );
 };
 
-const renderArrayTable = (
-  data: object[],
-  title?: string
-): JSX.Element | null => {
-  if (!data || !data.length)
-    return <div className="p-2 text-xs">Array vazio</div>;
+const renderArrayTable = (data: object[], title?: string): JSX.Element | null => {
+  if (!data || !data.length) return <div className="p-2 text-xs">Array vazio</div>;
 
   // For arrays of primitive values
   if (!isNestedObject(data[0])) {
     return (
       <div className="p-2">
-        {title && <div className="text-sm font-medium mb-2">{title}</div>}
-        <Table className="border border-border">
+        {title && <div className="mb-2 text-sm font-medium">{title}</div>}
+        <Table className="border-border border">
           <TableHeader className="bg-muted/50">
             <TableRow>
-              <TableHead className="text-xs p-2">Índice</TableHead>
-              <TableHead className="text-xs p-2">Valor</TableHead>
+              <TableHead className="p-2 text-xs">Índice</TableHead>
+              <TableHead className="p-2 text-xs">Valor</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((value, index) => (
               <TableRow key={index}>
-                <TableCell className="text-xs p-2">{index}</TableCell>
-                <TableCell className="text-xs p-2">{String(value)}</TableCell>
+                <TableCell className="p-2 text-xs">{index}</TableCell>
+                <TableCell className="p-2 text-xs">{String(value)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -268,13 +211,13 @@ const renderArrayTable = (
 
   return (
     <div className="p-2">
-      {title && <div className="text-sm font-medium mb-2">{title}</div>}
-      <Table className="border border-border">
+      {title && <div className="mb-2 text-sm font-medium">{title}</div>}
+      <Table className="border-border border">
         <TableHeader className="bg-muted/50">
           <TableRow>
-            <TableHead className="text-xs p-2">Índice</TableHead>
+            <TableHead className="p-2 text-xs">Índice</TableHead>
             {columns.map((column) => (
-              <TableHead key={column} className="text-xs p-2">
+              <TableHead key={column} className="p-2 text-xs">
                 {capitalize(column)}
               </TableHead>
             ))}
@@ -284,16 +227,12 @@ const renderArrayTable = (
           {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
           {data.map((item: Record<string, any>, index) => (
             <TableRow key={index}>
-              <TableCell className="text-xs p-2">{index}</TableCell>
+              <TableCell className="p-2 text-xs">{index}</TableCell>
               {columns.map((column) => {
                 const value = item[column];
                 return (
-                  <TableCell key={column} className="text-xs p-2">
-                    {isNestedObject(value) ? (
-                      <ExpandableCell value={value} />
-                    ) : (
-                      String(value)
-                    )}
+                  <TableCell key={column} className="p-2 text-xs">
+                    {isNestedObject(value) ? <ExpandableCell value={value} /> : String(value)}
                   </TableCell>
                 );
               })}

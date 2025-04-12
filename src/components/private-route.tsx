@@ -1,6 +1,6 @@
-import { PropsWithChildren, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/auth-context";
+import { PropsWithChildren, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/auth-context';
 
 type PrivateRouteProps = PropsWithChildren;
 export const PrivateRoute = ({ children }: PrivateRouteProps) => {
@@ -9,7 +9,7 @@ export const PrivateRoute = ({ children }: PrivateRouteProps) => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login", { replace: true });
+      navigate('/login', { replace: true });
     }
   }, [isAuthenticated, navigate]);
 

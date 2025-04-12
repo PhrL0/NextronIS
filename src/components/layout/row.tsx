@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import React from "react";
+import { cn } from '@/lib/utils';
+import React from 'react';
 
 export type RowProps = {
-  align?: "top" | "middle" | "bottom" | "stretch";
-  justify?: "start" | "end" | "center" | "space-around" | "space-between";
+  align?: 'top' | 'middle' | 'bottom' | 'stretch';
+  justify?: 'start' | 'end' | 'center' | 'space-around' | 'space-between';
   gutter?:
     | number
     | [number, number]
@@ -24,39 +24,27 @@ export type RowProps = {
 };
 
 const alignMap = {
-  top: "items-start",
-  middle: "items-center",
-  bottom: "items-end",
-  stretch: "items-stretch",
+  top: 'items-start',
+  middle: 'items-center',
+  bottom: 'items-end',
+  stretch: 'items-stretch'
 };
 
 const justifyMap = {
-  start: "justify-start",
-  end: "justify-end",
-  center: "justify-center",
-  "space-around": "justify-around",
-  "space-between": "justify-between",
+  start: 'justify-start',
+  end: 'justify-end',
+  center: 'justify-center',
+  'space-around': 'justify-around',
+  'space-between': 'justify-between'
 };
 
 export const Row = React.forwardRef<HTMLDivElement, RowProps>(
-  (
-    {
-      align = "top",
-      justify = "start",
-      gutter = 0,
-      wrap = true,
-      className,
-      style,
-      children,
-      ...props
-    },
-    ref
-  ) => {
+  ({ align = 'top', justify = 'start', gutter = 0, wrap = true, className, style, children, ...props }, ref) => {
     // Calculate gutters
     let horizontalGutter = 0;
     let verticalGutter = 0;
 
-    if (typeof gutter === "number") {
+    if (typeof gutter === 'number') {
       horizontalGutter = gutter;
       verticalGutter = gutter;
     } else if (Array.isArray(gutter)) {
@@ -69,7 +57,7 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
       ...style,
       marginLeft: horizontalGutter > 0 ? -horizontalGutter / 2 : undefined,
       marginRight: horizontalGutter > 0 ? -horizontalGutter / 2 : undefined,
-      rowGap: verticalGutter > 0 ? verticalGutter : undefined,
+      rowGap: verticalGutter > 0 ? verticalGutter : undefined
     };
 
     // Clone children to pass gutter information
@@ -77,7 +65,7 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
       if (React.isValidElement(child)) {
         return React.cloneElement(child, {
           ...child.props,
-          gutter: [horizontalGutter, verticalGutter],
+          gutter: [horizontalGutter, verticalGutter]
         });
       }
       return child;
@@ -87,8 +75,8 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
       <div
         ref={ref}
         className={cn(
-          "flex w-full",
-          wrap ? "flex-wrap" : "flex-nowrap",
+          'flex w-full',
+          wrap ? 'flex-wrap' : 'flex-nowrap',
           alignMap[align],
           justifyMap[justify],
           className
@@ -102,6 +90,6 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
   }
 );
 
-Row.displayName = "Row";
+Row.displayName = 'Row';
 
 export default Row;

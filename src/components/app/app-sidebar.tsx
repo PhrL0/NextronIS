@@ -1,13 +1,13 @@
-import { useAuth } from "@/context/auth-context";
-import { useUserDecode } from "@/hooks/use-user";
-import { Bot, LayoutDashboard, LogOut, Settings, User } from "lucide-react";
-import { useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { Flex } from "../layout";
-import Typography from "../typography";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Card } from "../ui/card";
+import { useAuth } from '@/context/auth-context';
+import { useUserDecode } from '@/hooks/use-user';
+import { Bot, LayoutDashboard, LogOut, Settings, User } from 'lucide-react';
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Flex } from '../layout';
+import Typography from '../typography';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Button } from '../ui/button';
+import { Card } from '../ui/card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,13 +15,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import {
-  MorphingPopover,
-  MorphingPopoverContent,
-  MorphingPopoverTrigger,
-} from "../ui/morphing-popover";
+  DropdownMenuTrigger
+} from '../ui/dropdown-menu';
+import { MorphingPopover, MorphingPopoverContent, MorphingPopoverTrigger } from '../ui/morphing-popover';
 import {
   Sidebar,
   SidebarContent,
@@ -31,8 +27,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
-} from "../ui/sidebar";
+  useSidebar
+} from '../ui/sidebar';
 
 export const AppSidebar = () => {
   const navigate = useNavigate();
@@ -40,29 +36,29 @@ export const AppSidebar = () => {
   const sidebarItems = useMemo(
     () => [
       {
-        key: "dashboard",
-        label: "Dashboard",
+        key: 'dashboard',
+        label: 'Dashboard',
         icon: <LayoutDashboard />,
         onClick: () => {
-          navigate("/app");
-        },
+          navigate('/app');
+        }
       },
       {
-        key: "Ai",
-        label: "Ai",
+        key: 'Ai',
+        label: 'Ai',
         icon: <Bot />,
         onClick: () => {
-          navigate("ai");
-        },
+          navigate('ai');
+        }
       },
       {
-        key: "settings",
-        label: "Settings",
+        key: 'settings',
+        label: 'Settings',
         icon: <Settings />,
         onClick: () => {
-          navigate("settings");
-        },
-      },
+          navigate('settings');
+        }
+      }
     ],
     [navigate]
   );
@@ -75,11 +71,7 @@ export const AppSidebar = () => {
           <SidebarMenu>
             {sidebarItems.map((item) => (
               <SidebarMenuItem key={item.key}>
-                <SidebarMenuButton
-                  className="cursor-pointer"
-                  onClick={item.onClick}
-                  key={item.key}
-                >
+                <SidebarMenuButton className="cursor-pointer" onClick={item.onClick} key={item.key}>
                   {item.icon}
                   {item.label}
                 </SidebarMenuButton>
@@ -102,17 +94,17 @@ const UserCard = () => {
   const menuButtons = useMemo(
     () => [
       {
-        label: "Configurações",
+        label: 'Configurações',
         icon: <Settings />,
         onClick: () => {},
-        variant: "ghost",
+        variant: 'ghost'
       },
       {
-        label: "Sair",
+        label: 'Sair',
         icon: <LogOut />,
         onClick: logout,
-        variant: "destructive",
-      },
+        variant: 'destructive'
+      }
     ],
     [logout]
   );
@@ -120,8 +112,8 @@ const UserCard = () => {
     return (
       <MorphingPopover>
         <MorphingPopoverTrigger asChild>
-          <Card className="p-4 cursor-pointer w-full">
-            <Flex gap={"middle"} align="center" justify="start">
+          <Card className="w-full cursor-pointer p-4">
+            <Flex gap={'middle'} align="center" justify="start">
               <Avatar>
                 <AvatarImage src="" alt="Imagem do usuario" />
                 <AvatarFallback>
@@ -129,24 +121,15 @@ const UserCard = () => {
                 </AvatarFallback>
               </Avatar>
               <Flex vertical className="gap-0">
-                <Typography.Title className="text-sm">
-                  {user.username}
-                </Typography.Title>
-                <Typography.Text className="text-xs text-neutral-600">
-                  {user.email}
-                </Typography.Text>
+                <Typography.Title className="text-sm">{user.username}</Typography.Title>
+                <Typography.Text className="text-xs text-neutral-600">{user.email}</Typography.Text>
               </Flex>
             </Flex>
           </Card>
         </MorphingPopoverTrigger>
-        <MorphingPopoverContent className="w-full bottom-0 space-y-4">
+        <MorphingPopoverContent className="bottom-0 w-full space-y-4">
           {menuButtons.map((button) => (
-            <Button
-              className="w-full"
-              variant={button.variant}
-              onClick={button.onClick}
-              key={button.label}
-            >
+            <Button className="w-full" variant={button.variant} onClick={button.onClick} key={button.label}>
               {button.icon} {button.label}
             </Button>
           ))}
@@ -165,11 +148,7 @@ const UserCard = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {menuButtons.map((button) => (
-            <DropdownMenuItem
-              variant={button.variant}
-              onClick={button.onClick}
-              key={button.label}
-            >
+            <DropdownMenuItem variant={button.variant} onClick={button.onClick} key={button.label}>
               {button.icon} {button.label}
             </DropdownMenuItem>
           ))}

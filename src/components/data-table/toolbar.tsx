@@ -1,8 +1,8 @@
-import { exportTo } from "@/lib/exportTo";
-import { capitalize } from "@/lib/utils";
-import { Table } from "@tanstack/react-table";
-import { Eye, EyeOff } from "lucide-react";
-import { ReactElement } from "react";
+import { exportTo } from '@/lib/exportTo';
+import { capitalize } from '@/lib/utils';
+import { Table } from '@tanstack/react-table';
+import { Eye, EyeOff } from 'lucide-react';
+import { ReactElement } from 'react';
 import {
   Menubar,
   MenubarContent,
@@ -11,8 +11,8 @@ import {
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
-  MenubarTrigger,
-} from "../ui/menubar";
+  MenubarTrigger
+} from '../ui/menubar';
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -26,66 +26,61 @@ interface MenuItem {
   items?: MenuItem[];
 }
 
-export function DataTableToolbar<TData>({
-  table,
-  onExportPDF,
-}: ToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table, onExportPDF }: ToolbarProps<TData>) {
   const menubarExportItems: MenuItem[] = [
     {
-      key: "export",
-      label: "Exportar",
+      key: 'export',
+      label: 'Exportar',
       items: [
         {
-          key: "csv",
-          label: ".csv",
+          key: 'csv',
+          label: '.csv',
           onClick: () =>
             exportTo(
-              "csv",
+              'csv',
               table.getFilteredRowModel().rows.map((row) => row.original)
-            ),
+            )
         },
         {
-          key: "pdf",
-          label: ".pdf",
-          onClick: onExportPDF,
+          key: 'pdf',
+          label: '.pdf',
+          onClick: onExportPDF
         },
         {
-          key: "xls",
-          label: ".xls",
+          key: 'xls',
+          label: '.xls',
           onClick: () =>
             exportTo(
-              "xlsx",
+              'xlsx',
               table.getFilteredRowModel().rows.map((row) => row.original)
-            ),
+            )
         },
         {
-          key: "xls2",
-          label: ".xls (ExcelJS)",
+          key: 'xls2',
+          label: '.xls (ExcelJS)',
           onClick: () =>
             exportTo(
-              "exceljs",
+              'exceljs',
               table.getFilteredRowModel().rows.map((row) => row.original)
-            ),
+            )
         },
         {
-          key: "txt",
-          label: ".txt",
+          key: 'txt',
+          label: '.txt',
           onClick: () =>
             exportTo(
-              "txt",
+              'txt',
               table.getFilteredRowModel().rows.map((row) => row.original)
-            ),
-        },
-      ],
-    },
+            )
+        }
+      ]
+    }
   ];
   return (
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>Arquivo</MenubarTrigger>
-        <MenubarContent>
-          {menubarExportItems.map((item) => menubarRender(item))}
-        </MenubarContent>
+        <MenubarContent>{menubarExportItems.map((item) => menubarRender(item))}</MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>Configurações</MenubarTrigger>
@@ -103,7 +98,7 @@ export function DataTableToolbar<TData>({
                       {capitalize(col.id)}
                     </>
                   ),
-                  onClick: () => col.toggleVisibility(!col.getIsVisible()),
+                  onClick: () => col.toggleVisibility(!col.getIsVisible())
                 }))
                 .map((col) => menubarRender(col))}
             </MenubarSubContent>
@@ -118,9 +113,7 @@ const menubarRender = (item: MenuItem) =>
   item.items ? (
     <MenubarSub key={item.key}>
       <MenubarSubTrigger>{item.label}</MenubarSubTrigger>
-      <MenubarSubContent>
-        {item.items?.map((subItem) => menubarRender(subItem))}
-      </MenubarSubContent>
+      <MenubarSubContent>{item.items?.map((subItem) => menubarRender(subItem))}</MenubarSubContent>
     </MenubarSub>
   ) : (
     <MenubarItem key={item.key} onClick={item.onClick}>

@@ -1,26 +1,17 @@
-import React from "react";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { ChartComponentProps } from "../types";
+import React from 'react';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { ChartComponentProps } from '../types';
 
 const ChartComponent: React.FC<ChartComponentProps> = ({ machines }) => {
   // Mapeia os dados para o formato do gráfico.
   const data = machines.map((machine) => ({
     name: machine.name,
     temperature: machine.temperature,
-    vibration: machine.vibration,
+    vibration: machine.vibration
   }));
 
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: '100%', height: 300 }}>
       <ResponsiveContainer>
         <LineChart data={data}>
           <CartesianGrid stroke="#ccc" />

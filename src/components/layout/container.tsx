@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import React from "react";
+import { cn } from '@/lib/utils';
+import React from 'react';
 
 export type LayoutProps = {
   className?: string;
@@ -33,12 +33,9 @@ export type SiderProps = {
   width?: number | string;
   collapsible?: boolean;
   collapsed?: boolean;
-  onCollapse?: (
-    collapsed: boolean,
-    type: "clickTrigger" | "responsive"
-  ) => void;
-  breakpoint?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
-  theme?: "light" | "dark";
+  onCollapse?: (collapsed: boolean, type: 'clickTrigger' | 'responsive') => void;
+  breakpoint?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  theme?: 'light' | 'dark';
   collapsedWidth?: number;
   trigger?: React.ReactNode;
   reverseArrow?: boolean;
@@ -49,11 +46,7 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          "flex flex-col min-h-screen",
-          hasSider && "flex-row",
-          className
-        )}
+        className={cn('flex min-h-screen flex-col', hasSider && 'flex-row', className)}
         style={style}
         {...props}
       >
@@ -63,77 +56,51 @@ const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
   }
 );
 
-Layout.displayName = "Layout";
+Layout.displayName = 'Layout';
 
-const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
-  ({ className, style, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "flex items-center h-12 px-4 bg-background border-b border-border",
-          className
-        )}
-        style={style}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
+const Header = React.forwardRef<HTMLDivElement, HeaderProps>(({ className, style, children, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn('bg-background border-border flex h-12 items-center border-b px-4', className)}
+      style={style}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+});
 
-Header.displayName = "Header";
+Header.displayName = 'Header';
 
-const Content = React.forwardRef<HTMLDivElement, ContentProps>(
-  ({ className, style, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn("flex-1 p-6", className)}
-        style={style}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
+const Content = React.forwardRef<HTMLDivElement, ContentProps>(({ className, style, children, ...props }, ref) => {
+  return (
+    <div ref={ref} className={cn('flex-1 p-6', className)} style={style} {...props}>
+      {children}
+    </div>
+  );
+});
 
-Content.displayName = "Content";
+Content.displayName = 'Content';
 
-const Footer = React.forwardRef<HTMLDivElement, FooterProps>(
-  ({ className, style, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "flex items-center justify-center h-16 px-6 bg-background border-t border-border",
-          className
-        )}
-        style={style}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
+const Footer = React.forwardRef<HTMLDivElement, FooterProps>(({ className, style, children, ...props }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn('bg-background border-border flex h-16 items-center justify-center border-t px-6', className)}
+      style={style}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+});
 
-Footer.displayName = "Footer";
+Footer.displayName = 'Footer';
 
 const Sider = React.forwardRef<HTMLDivElement, SiderProps>(
   (
-    {
-      className,
-      style,
-      children,
-      width = 200,
-      collapsed = false,
-      collapsedWidth = 80,
-      theme = "light",
-      ...props
-    },
+    { className, style, children, width = 200, collapsed = false, collapsedWidth = 80, theme = 'light', ...props },
     ref
   ) => {
     const siderWidth = collapsed ? collapsedWidth : width;
@@ -142,14 +109,13 @@ const Sider = React.forwardRef<HTMLDivElement, SiderProps>(
       <div
         ref={ref}
         className={cn(
-          "flex flex-col flex-none border-r border-border transition-all duration-300 ease-in-out",
-          theme === "dark" ? "bg-slate-800 text-white" : "bg-background",
+          'border-border flex flex-none flex-col border-r transition-all duration-300 ease-in-out',
+          theme === 'dark' ? 'bg-slate-800 text-white' : 'bg-background',
           className
         )}
         style={{
           ...style,
-          width:
-            typeof siderWidth === "number" ? `${siderWidth}px` : siderWidth,
+          width: typeof siderWidth === 'number' ? `${siderWidth}px` : siderWidth
         }}
         {...props}
       >
@@ -159,7 +125,7 @@ const Sider = React.forwardRef<HTMLDivElement, SiderProps>(
   }
 );
 
-Sider.displayName = "Sider";
+Sider.displayName = 'Sider';
 
 Layout.Header = Header;
 Layout.Content = Content;

@@ -1,63 +1,42 @@
-import { cn } from "@/lib/utils";
-import { Loader, Loader2 } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { Loader, Loader2 } from 'lucide-react';
 
-interface LoadingProps extends React.ComponentProps<"div"> {
-  variant?: "single" | "medium" | "detailed";
-  spinVariant?: "circle" | "lines";
+interface LoadingProps extends React.ComponentProps<'div'> {
+  variant?: 'single' | 'medium' | 'detailed';
+  spinVariant?: 'circle' | 'lines';
 }
 export const Loading = ({
-  variant = "single",
-  spinVariant = "circle",
+  variant = 'single',
+  spinVariant = 'circle',
   title,
   color,
   className,
   ...props
 }: LoadingProps) => {
-  const loaderSize = variant == "single" ? 24 : variant == "medium" ? 48 : 64;
+  const loaderSize = variant == 'single' ? 24 : variant == 'medium' ? 48 : 64;
   const spin =
-    spinVariant === "circle" ? (
-      <Loader2
-        className={cn("animate-spin", `stroke-${color}`)}
-        size={loaderSize}
-      />
+    spinVariant === 'circle' ? (
+      <Loader2 className={cn('animate-spin', `stroke-${color}`)} size={loaderSize} />
     ) : (
-      <Loader
-        className={cn("animate-spin", `stroke-${color}`)}
-        size={loaderSize}
-      />
+      <Loader className={cn('animate-spin', `stroke-${color}`)} size={loaderSize} />
     );
 
-  if (variant === "single")
+  if (variant === 'single')
     return (
-      <div
-        className={cn(
-          "size-full flex flex-col flex-1 justify-center items-center",
-          className
-        )}
-        {...props}
-      >
+      <div className={cn('flex size-full flex-1 flex-col items-center justify-center', className)} {...props}>
         {spin}
-        {title ? (
-          <p className={cn("text-xs text-center mt-2", `text-${color}`)}>
-            {title}
-          </p>
-        ) : null}
+        {title ? <p className={cn('mt-2 text-center text-xs', `text-${color}`)}>{title}</p> : null}
       </div>
     );
-  if (variant === "medium")
+  if (variant === 'medium')
     return (
-      <div className="size-full flex justify-center items-center">
+      <div className="flex size-full items-center justify-center">
         <div
-          className={cn(
-            "w-max h-min p-4 aspect-square flex flex-col justify-center items-center",
-            className
-          )}
+          className={cn('flex aspect-square h-min w-max flex-col items-center justify-center p-4', className)}
           {...props}
         >
           {spin}
-          {title && (
-            <p className={cn("text-center mt-2", `text-${color}`)}>{title}</p>
-          )}
+          {title && <p className={cn('mt-2 text-center', `text-${color}`)}>{title}</p>}
         </div>
       </div>
     );

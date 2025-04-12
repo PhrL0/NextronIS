@@ -1,5 +1,4 @@
-import { ThemeProvider, useTheme } from "./theme-provider"
-import { ThemeSwitcher } from "./theme-switcher"
+import { ThemeProvider, useTheme } from './theme-provider';
+import { ThemeSwitcher } from './theme-switcher';
 
-export { ThemeProvider, useTheme, ThemeSwitcher }
-
+export { ThemeProvider, useTheme, ThemeSwitcher };

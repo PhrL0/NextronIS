@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 // MASTER USER SCHEMA
 export const userDecodedSchema = z.object({
@@ -6,7 +6,7 @@ export const userDecodedSchema = z.object({
   email: z.string(),
   username: z.string(),
   iat: z.number(),
-  exp: z.number(),
+  exp: z.number()
 });
 
 // TYPES

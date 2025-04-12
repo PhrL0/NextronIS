@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "tailwindcss-animate";
 @plugin "@tailwindcss/typography";
@@ -147,11 +147,7 @@
     flex: 1;
   }
   thead {
-    background-color: color-mix(
-      in srgb,
-      var(--accent-foreground) 5%,
-      transparent 95%
-    );
+    background-color: color-mix(in srgb, var(--accent-foreground) 5%, transparent 95%);
   }
   th,
   td {

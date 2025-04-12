@@ -1,29 +1,24 @@
-import { PanelRightOpen } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import { Header } from "../layout";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "../ui/breadcrumb";
-import { Button } from "../ui/button";
-import { ModeToggle } from "../ui/mode-toggle";
-import { useSidebar } from "../ui/sidebar";
+import { PanelRightOpen } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Header } from '../layout';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from '../ui/breadcrumb';
+import { Button } from '../ui/button';
+import { ModeToggle } from '../ui/mode-toggle';
+import { useSidebar } from '../ui/sidebar';
 
 export const AppHeader = () => {
   const { toggleSidebar } = useSidebar();
   const location = useLocation();
-  const paths = location.pathname.split("/");
+  const paths = location.pathname.split('/');
   paths.shift();
 
   const breadcrumbs: { title: string; link: string }[] = [];
   paths
-    .filter((path) => path != "app")
+    .filter((path) => path != 'app')
     .map((p, index) => {
       breadcrumbs.push({
         title: `${p}`,
-        link: `/${paths.slice(0, index + 1).join("/")}`,
+        link: `/${paths.slice(0, index + 1).join('/')}`
       });
     });
 
@@ -41,9 +36,7 @@ export const AppHeader = () => {
               <>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem key={b.title}>
-                  <Link to={breadcrumbs.map((_b) => _b.link).join("")}>
-                    {b.title}
-                  </Link>
+                  <Link to={breadcrumbs.map((_b) => _b.link).join('')}>{b.title}</Link>
                 </BreadcrumbItem>
               </>
             ))}

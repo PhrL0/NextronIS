@@ -1,8 +1,8 @@
-import { Configuration } from "@/generate-api";
-import apiClient from "./api-client";
+import { Configuration } from '@/generate-api';
+import apiClient from './api-client';
 
 export const apiConfig = new Configuration({
   baseOptions: {
-    axios: apiClient,
-  },
+    axios: apiClient
+  }
 });

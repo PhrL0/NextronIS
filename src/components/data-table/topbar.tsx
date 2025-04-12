@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { Flex } from "@/components/layout/flex";
-import { Space } from "@/components/layout/space";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
-import type { Table } from "@tanstack/react-table";
+import { Flex } from '@/components/layout/flex';
+import { Space } from '@/components/layout/space';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+import type { Table } from '@tanstack/react-table';
 
 interface TopbarProps<TData> {
   table: Table<TData>;
@@ -13,20 +13,16 @@ interface TopbarProps<TData> {
   columnFilters: { id: string; value: string }[];
 }
 
-export function DataTableTopbar<TData>({
-  table,
-  size,
-  columnFilters,
-}: TopbarProps<TData>) {
+export function DataTableTopbar<TData>({ table, size, columnFilters }: TopbarProps<TData>) {
   return (
-    <Flex align="center" className="pb-4 w-full" justify="between">
+    <Flex align="center" className="w-full pb-4" justify="between">
       <Flex>
         <Input
           placeholder="Search"
           onChange={(event) => {
             table.setGlobalFilter(event.target.value);
           }}
-          className={cn("max-w-sm", `!text-${size}`)}
+          className={cn('max-w-sm', `!text-${size}`)}
         />
         <Space size={2}>
           {columnFilters.map((filter) => (
