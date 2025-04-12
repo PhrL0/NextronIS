@@ -50,8 +50,8 @@ export const LandingPage = () => {
         <HeroSection />
       </GridBackground>
 
-      <main className="flex flex-col items-center justify-center gap-8 p-4 bg-white dark:bg-black">
-        <Flex vertical className="p-16 gap-12 max-w-6xl">
+      <main className="flex flex-col items-center justify-center gap-8 bg-white dark:bg-black">
+        <Flex vertical className="gap-12 p-4 max-w-4xl">
           <Flex align="center" justify="between" wrap="wrap" className="w-full">
             {/* Seção Sensor */}
             <ResponsiveCard
@@ -208,7 +208,7 @@ const HeroSection = () => {
       >
         <EyeLooking />
       </motion.div>
-      <Flex vertical align="center">
+      <Flex vertical align="center" className="max-w-4xl">
         <h1 className="text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100 px-16">
           {"Monitore suas máquinas com inteligência e agilidade"
             .split(" ")
@@ -280,7 +280,7 @@ const HeroSection = () => {
             duration: 0.3,
             delay: 1.2 + 2,
           }}
-          className="relative z-10 mt-20 rounded-3xl p-4 m-[5%] sm:m-0 max-w-4xl"
+          className="relative z-10 mt-20 rounded-3xl p-4 sm:m-0"
         >
           {/* Carrossel de Imagens */}
           <Carousel
