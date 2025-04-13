@@ -134,7 +134,6 @@ export function DataTable<TData extends object>({
     const _data: TData[] = table.getFilteredRowModel().rows.map((row) => row.original);
 
     const doc = new jsPDF('landscape', 'mm', 'a4');
-    console.log(_data);
     const header = [Object.keys(_data[0])];
     autoTable(doc, {
       head: header,

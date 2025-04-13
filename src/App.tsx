@@ -4,6 +4,8 @@ import { PrivateRoute } from './components/private-route';
 import MyApp from './pages/app';
 import { AiPage } from './pages/app/ai-page';
 import DashboardPage from './pages/app/dashboard-page';
+import MachinesPage from './pages/app/machines';
+import MachineIdPage from './pages/app/machines/[id]';
 import { SettingsPage } from './pages/app/settings-page';
 import { LandingPage } from './pages/landing-page';
 import LoginPage from './pages/login-page';
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <DashboardPage />
+          },
+          {
+            path: 'machines',
+            element: <MachinesPage />
+          },
+          {
+            path: 'machines/:machine_id',
+            element: <MachineIdPage />
           },
           {
             path: 'settings',

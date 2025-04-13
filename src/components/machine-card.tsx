@@ -1,7 +1,9 @@
 import { MachineGet200ResponseMachinesInner } from '@/generate-api';
 import clsx from 'clsx';
-import { EllipsisVertical } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { ChevronsUp, EllipsisVertical, Gauge, Plug, Thermometer } from 'lucide-react';
+import { useMemo } from 'react';
+import { Link } from 'react-router';
+import { Meter } from './data-display/meter';
 import { Flex } from './layout';
 import Typography from './typography';
 import { Button } from './ui/button';
@@ -27,7 +29,7 @@ export const MachineCard = ({ machine }: MachineCardProps) => {
         `bg-${warningColor}-600/50 bg-green-500/5`,
         `border-${warningColor}-700/25`,
         `shadow-${warningColor}-700/20 shadow-md`,
-        'gap-0 pb-0'
+        'min-w-xs gap-0 pb-0'
       )}
     >
       <CardHeader className="pb-0">
@@ -38,53 +40,42 @@ export const MachineCard = ({ machine }: MachineCardProps) => {
               {machine.location.name}
             </Typography.Paragraph>
           </Flex>
-          <Button children={<EllipsisVertical size={16} />} variant="ghost" />
+          <Button children={<EllipsisVertical size={16} />} variant="ghost" size="icon" />
         </Flex>
       </CardHeader>
-      <CardContent className="p-0">
-        <div className="flex flex-col p-4 pb-0">
+      <CardContent className="p-0 px-3">
+        <Flex className="p-4" justify="between" align="end">
           <div className="flex flex-wrap items-start justify-start gap-2">
-            <Medidor label="C" currentValue={30} max={120} min={-25} />
-            <Medidor label="Energia" currentValue={86} max={120} min={-25} />
-            <Medidor label="Uso" currentValue={50} max={120} min={-25} />
+            <Meter
+              vertical
+              icon={<Thermometer size={20} className="text-neutral-500 dark:text-neutral-600" />}
+              currentValue={30}
+              max={120}
+              min={-25}
+            />
+            <Meter
+              vertical
+              icon={<Plug className="text-neutral-500 dark:text-neutral-600" size={20} />}
+              currentValue={86}
+              max={120}
+              min={-25}
+            />
+            <Meter
+              vertical
+              icon={<Gauge className="text-neutral-500 dark:text-neutral-600" size={20} />}
+              currentValue={50}
+              max={100}
+              min={0}
+              displayFormat="percentage"
+            />
           </div>
-        </div>
+          <Link to={`${machine.machine_id}`}>
+            <Button variant="ghost" size="icon">
+              <ChevronsUp />
+            </Button>
+          </Link>
+        </Flex>
       </CardContent>
     </Card>
-  );
-};
-
-type MedidorProps = {
-  min: number;
-  max: number;
-  currentValue: number;
-  label: string;
-};
-const Medidor = ({ min, max, currentValue, label }: MedidorProps) => {
-  const [percentage, setPercentage] = useState(0);
-  const color = useMemo(() => {
-    if (percentage > 90) return '#db2d2d';
-    if (percentage > 75) return '#d36d28';
-    if (percentage > 50) return '#f1dd23';
-    if (percentage > 25) return '#66e92a';
-    if (percentage > 0) return '#3072ec';
-  }, [percentage]);
-  useEffect(() => {
-    setPercentage((currentValue / max) * 100);
-  }, [currentValue, max]);
-  return (
-    <div className="flex h-full min-h-32 flex-col items-center justify-center gap-1">
-      <div className="flex h-24 w-4 items-end rounded-full bg-neutral-200 dark:bg-neutral-800">
-        <div
-          style={{
-            height: `${percentage}%`,
-            width: '100%',
-            borderRadius: '1000rem',
-            backgroundColor: `${color}`
-          }}
-        />
-      </div>
-      <Typography.Paragraph className="text-xs">{label}</Typography.Paragraph>
-    </div>
   );
 };

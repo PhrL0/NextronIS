@@ -1,7 +1,7 @@
 import { useAuth } from '@/context/auth-context';
 import { useUserDecode } from '@/hooks/use-user';
-import { Bot, LayoutDashboard, LogOut, Settings, User } from 'lucide-react';
-import { useMemo } from 'react';
+import { Bot, Factory, LayoutDashboard, LogOut, Settings, User } from 'lucide-react';
+import { JSX, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Flex } from '../layout';
 import Typography from '../typography';
@@ -42,6 +42,14 @@ export const AppSidebar = () => {
         icon: <LayoutDashboard />,
         onClick: () => {
           navigate('/app');
+        }
+      },
+      {
+        key: 'machines',
+        label: 'Machines',
+        icon: <Factory />,
+        onClick: () => {
+          navigate('/app/machines');
         }
       },
       {
@@ -94,13 +102,18 @@ const UserCard = () => {
   const { logout } = useAuth();
   const user = useUserDecode();
   const { open } = useSidebar();
-  const menuButtons = useMemo(
+  const menuButtons: {
+    label: string;
+    icon: JSX.Element;
+    onClick: () => void;
+    variant: 'link' | 'outline' | 'destructive' | 'default' | 'secondary' | 'ghost' | null | undefined;
+  }[] = useMemo(
     () => [
       {
         label: 'Configurações',
         icon: <Settings />,
         onClick: () => {},
-        variant: 'ghost'
+        variant: 'outline'
       },
       {
         label: 'Sair',
@@ -130,7 +143,7 @@ const UserCard = () => {
             </Flex>
           </Card>
         </MorphingPopoverTrigger>
-        <MorphingPopoverContent className="bottom-0 w-full space-y-4">
+        <MorphingPopoverContent className="bottom-0 w-full space-y-4 bg-neutral-100 dark:bg-neutral-900">
           {menuButtons.map((button) => (
             <Button className="w-full" variant={button.variant} onClick={button.onClick} key={button.label}>
               {button.icon} {button.label}

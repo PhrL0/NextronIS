@@ -30,9 +30,10 @@ export function autoFormat(value: any) {
   }
 
   // Tenta converter para data
-  if (typeof value === 'string' && !isNaN(Date.parse(value)) && value.length >= 6) {
+  if (isValidDate(value)) {
     const date = new Date(value);
-    return date.toLocaleDateString('pt-BR');
+    if (date.toLocaleTimeString() == '00:00:00') return date.toLocaleDateString();
+    return date.toLocaleString().replace(',', '');
   }
 
   // Se for objeto ou array, transforma em string
@@ -41,4 +42,8 @@ export function autoFormat(value: any) {
   }
 
   return value;
+}
+
+function isValidDate(sDate: string) {
+  return /\d+-\d+-\d+/.test(sDate);
 }
