@@ -1,73 +1,84 @@
-## Documentação Detalhada dos Principais Diretórios
+## 📁 Estrutura de Pastas — Visão Geral
 
-- ### Assets/
+Este projeto segue uma arquitetura **modular baseada em features** com princípios de **Atomic Design** para a organização dos componentes. Abaixo, um resumo dos principais diretórios:
 
-Armazena imagens, fontes e estilos que definem a identidade visual do app.
+---
 
-Exemplo: global.css é carregado em todo o projeto.
+### 🧩 `features/`
 
-- ### context/
+Cada subpasta representa uma funcionalidade ou domínio do sistema (ex: `auth`, `ai`, `machine`), com estrutura própria para:
 
-Contém os contextos do React que fornecem dados globais, como o estado de autenticação via AuthContext.tsx.
+- `components/` → separados em `atom`, `molecules` e `organisms`
+- `hooks/` → lógica e hooks específicos da feature
+- `schemas/` → validações e estruturação de dados com Zod (ou similar)
+- `services/` → integração com o backend
 
-- ### data/
+> ✅ Favorece escalabilidade, reutilização e isolamento de responsabilidades.
 
-Reúne a configuração de comunicação com a API, centralizando o cliente HTTP e os endpoints, facilitando a manutenção.
+---
 
-- ### generate-api/
+### 🌐 `pages/`
 
-Código gerado automaticamente (ex.: por OpenAPI) com APIs e modelos, garantindo consistência entre frontend e backend.
+Organização das rotas da aplicação:
 
-- ### hooks/
+- `external/` → páginas públicas (ex: landing, login, register)
+- `app/` → páginas internas acessíveis após login (ex: dashboard, settings)
 
-Hooks genéricos e reutilizáveis que não dependem de uma feature específica.
+> ✅ Deixa claro o que é acessível publicamente e o que depende de autenticação.
 
-- ### lib/
+---
 
-Funções auxiliares e bibliotecas internas que podem ser utilizadas em qualquer lugar do aplicativo.
+### 🧱 `shared/`
 
-- ### schemas/
+Componentes e lógica reutilizáveis em todo o app:
 
-Define schemas para validações e estruturas de dados usados no projeto (ex.: schema de usuário).
+- `components/`
+  - `atom` → elementos básicos (ícones, botões)
+  - `molecules` → combinações de átomos (inputs com label, modais)
+  - `organisms` → estruturas mais complexas (headers, tabelas)
+- `constants/`, `hooks/`, `lib/`, `schemas/`, `utils/` → recursos globais e reutilizáveis
 
-- ### shared/
+> ✅ Garante consistência visual e evita duplicação de código.
 
-Componentes, hooks, utils e constantes que são comuns a diversas partes do app, organizados seguindo o Atomic Design:
+---
 
-atoms: Elementos básicos como ícones, avatars, etc.
+### 🔧 `data/` e `generate-api/`
 
-molecules: Combinações de átomos para componentes menores, como modais.
+- `data/api/` → configurações manuais de chamadas HTTP e endpoints
+- `generate-api/` → código gerado automaticamente via OpenAPI (models, services)
 
-organisms: Componentes mais complexos, como header e footer.
+> ✅ Facilita a integração entre frontend e backend com segurança e padronização.
 
-Essa pasta garante consistência visual e evita duplicação de código.
+---
 
-- ### features/
+### 🌍 `context/`
 
-Cada subpasta representa uma funcionalidade ou domínio específico da parte interna do app (após autenticação).
+Contextos globais do React como autenticação (`AuthContext`), tema escuro/claro (`ThemeContext`) e outros estados compartilhados.
 
-Dentro de cada feature (ex.: auth, dashboard, machines) os arquivos são organizados segundo Atomic Design para os componentes e também possuem:
+---
 
-hooks: Custom hooks e lógica específica da feature.
+### 🎨 `assets/`
 
-pages: Páginas internas que pertencem à feature (por exemplo, o perfil do usuário em auth ou a listagem de máquinas).
+Armazena imagens, fontes e estilos globais como `global.css`.
 
-services: Funções para comunicação com o backend, isolando a lógica de negócio.
+---
 
-O uso de um "slice" (ex.: authSlice.ts) ajuda a centralizar o gerenciamento de estado.
+### 🧠 Diretórios Globais Auxiliares
 
-- ### pages/
+Estes diretórios armazenam lógica reutilizável **não vinculada a uma feature específica**:
 
-external/: Contém as páginas públicas – aquelas acessadas sem autenticação (ex.: landing, login, register, error).
+- `hooks/` → hooks genéricos
+- `lib/` → funções auxiliares e bibliotecas
+- `schemas/` → validações genéricas
+- `utils/` → utilitários como geração de PDF, planilhas, formatações, etc.
 
-app/: Armazena as páginas que compõem a aplicação interna, disponíveis após o login (ex.: HomePage, ai-page, settings-page e as páginas específicas de módulos, como as de máquinas).
+---
 
-Essa divisão facilita a navegação e o gerenciamento das rotas, deixando claro o que é acessível publicamente e o que depende do estado autenticado.
+### 📌 Arquivos Raiz
 
-- ### utils/
+- `main.tsx`, `App.tsx`, `providers.tsx`, `types.ts`, `vite-env.d.ts`
+  > Ponto de entrada da aplicação, configuração de providers globais e tipos TypeScript.
 
-Reúne funções utilitárias que auxiliam em tarefas comuns, como a geração de PDFs, Excel ou validação de dados.
+---
 
-Arquivos Raiz (App.tsx, main.tsx, providers.tsx, types.ts, vite-env.d.ts):
-
-São os pontos de entrada e configuração global do app, responsáveis por iniciar o React, aplicar os providers (como contextos e temas) e definir os tipos globais.
+> Essa estrutura foi projetada para facilitar a escalabilidade, organização e manutenibilidade do código, permitindo o crescimento modular do projeto com clareza e robustez.
