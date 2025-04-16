@@ -104,7 +104,7 @@ Nossos sensores avançados monitoram condições ambientais e operacionais em te
       </main>
 
       {/* Rodapé */}
-      <footer style={{ textAlign: 'center' }}>MonitorPro ©2025 - Criado com Ant Design</footer>
+      <footer className="p-4 text-center">MonitorPro ©2025 - Criado com Ant Design</footer>
     </>
   );
 };
