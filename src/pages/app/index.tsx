@@ -1,9 +1,9 @@
-import { AppSidebar } from '@/components/app/app-sidebar';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/features/app/components/molecules/app-sidebar';
+import { SidebarInset, SidebarProvider } from '@/shared/components/organisms/sidebar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet } from 'react-router-dom';
-import { AppHeader } from '../../components/app/app-header';
+import { AppHeader } from '../../features/app/components/molecules/app-header';
 
 const queryClient = new QueryClient();
 

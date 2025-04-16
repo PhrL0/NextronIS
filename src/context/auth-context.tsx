@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import apiClient from '../api/api-client'; // Importa o Axios configurado
+import apiClient from '../data/api/api-client'; // Importa o Axios configurado
 
 interface AuthContextType {
   token: string | null;

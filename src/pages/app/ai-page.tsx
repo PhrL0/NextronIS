@@ -1,10 +1,10 @@
-import { aiApi } from '@/api';
-import { PlaceholdersAndVanishInput } from '@/components/acernity/placeholders-and-vanish-input';
-import { Flex } from '@/components/layout';
-import { Loading } from '@/components/layout/loading';
-import Typography from '@/components/typography';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import Markdown from '@/lib/markdown';
+import { aiApi } from '@/data/api';
+import { PlaceholdersAndVanishInput } from '@/features/ai/components/molecules/placeholders-and-vanish-input';
+import { Avatar, AvatarFallback } from '@/shared/components/atom/avatar';
+import { Flex } from '@/shared/components/atom/layout';
+import { Loading } from '@/shared/components/atom/layout/loading';
+import Typography from '@/shared/components/atom/typography';
+import Markdown from '@/shared/lib/markdown';
 import { BotMessageSquare, Circle, PcCase, User } from 'lucide-react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 

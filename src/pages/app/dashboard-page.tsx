@@ -1,6 +1,6 @@
 // src/pages/DashboardPage.tsx
-import { Flex } from '@/components/layout';
-import Typography from '@/components/typography';
+import { Flex } from '@/shared/components/atom/layout';
+import Typography from '@/shared/components/atom/typography';
 import React from 'react';
 
 const DashboardPage: React.FC = () => {

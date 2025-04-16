@@ -1,14 +1,14 @@
-import { machineApi } from '@/api';
-import { Meter } from '@/components/data-display/meter';
-import { Flex } from '@/components/layout';
-import { Loading } from '@/components/layout/loading';
-import Typography from '@/components/typography';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { MAX_POINTS } from '@/constants/chart';
+import { machineApi } from '@/data/api';
+import { Button } from '@/shared/components/atom/button';
+import { Card, CardContent } from '@/shared/components/atom/card';
+import { Flex } from '@/shared/components/atom/layout';
+import { Loading } from '@/shared/components/atom/layout/loading';
+import Typography from '@/shared/components/atom/typography';
+import { Meter } from '@/shared/components/molecules/meter';
+import { MAX_POINTS } from '@/shared/constants/chart';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { ChevronRight, EllipsisVertical, Gauge, Plug, Thermometer } from 'lucide-react';
+import { ChevronRight, CornerRightDown, EllipsisVertical, Gauge, Plug, Thermometer } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useParams } from 'react-router';
@@ -71,7 +71,7 @@ function MachineIdPage() {
   if (error) return <div>Erro ao localizar a maquina...</div>;
 
   return (
-    <Flex className="w-full p-4" vertical>
+    <div className="grid w-full grid-cols-1 gap-6 p-4 2xl:grid-cols-2">
       <Flex justify="between" align="start" className="w-full">
         <Flex vertical>
           <Typography.Title level={2}>{data?.machine.name}</Typography.Title>
@@ -81,8 +81,8 @@ function MachineIdPage() {
         </Flex>
         <Button children={<EllipsisVertical size={16} />} variant="ghost" size="icon" />
       </Flex>
-      <Flex className="size-full flex-1 p-4" justify="start" align="start">
-        <div className="mr-8 flex flex-1 flex-col flex-wrap items-start justify-start gap-2">
+      <div className="grid size-full grid-cols-1 gap-8 p-4 lg:grid-cols-2">
+        <div className="flex w-full flex-col items-start justify-start gap-2">
           <Meter
             label="Temperature"
             icon={<Thermometer size={20} className="text-neutral-500 dark:text-neutral-600" />}
@@ -109,10 +109,12 @@ function MachineIdPage() {
           />
         </div>
         <LogsCard />
+      </div>
+      <Flex wrap="wrap">
+        <MachineChart chartData={chartData} />
+        <MachineChart chartData={chartData} />
       </Flex>
-
-      <MachineChart chartData={chartData} />
-    </Flex>
+    </div>
   );
 }
 
@@ -120,7 +122,7 @@ export default MachineIdPage;
 
 const LogsCard = () => {
   return (
-    <Card className="group/terminalcard relative size-full h-28 flex-1 cursor-pointer gap-2 overflow-hidden bg-neutral-800 px-4 py-2 transition-all hover:scale-[1.025]">
+    <Card className="group/terminalcard relative size-full h-28 flex-1 cursor-pointer gap-2 overflow-hidden bg-neutral-800 px-4 py-2 transition-all hover:h-32 hover:scale-[1.025]">
       <div className="absolute inset-0 size-full bg-linear-to-t from-neutral-800 to-transparent transition-colors group-hover/terminalcard:from-neutral-700/5"></div>
       <Flex justify="between" align="center">
         <Flex className="gap-1">
@@ -152,6 +154,7 @@ const LogsCard = () => {
           <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">{msg.date}</Typography.Paragraph>
         </Flex>
       ))}
+      <CornerRightDown className="absolute right-4 bottom-4 scale-100 animate-pulse stroke-3 text-neutral-400 opacity-100 shadow-white drop-shadow-xs transition-all group-hover/terminalcard:bottom-[-1rem] group-hover/terminalcard:scale-0 group-hover/terminalcard:text-white group-hover/terminalcard:opacity-0" />
     </Card>
   );
 };
@@ -164,9 +167,11 @@ type ChartData = {
 
 const MachineChart = ({ chartData }: { chartData: ChartData }) => {
   return (
-    <Card className="size-full">
-      <CardContent>
+    <Card className="aspect-[14/9] flex-1 p-2">
+      <CardContent className="size-full max-w-2xl p-1">
         <Chart
+          height="100%"
+          width="100%"
           options={{
             chart: {
               id: 'realtime',
@@ -179,6 +184,9 @@ const MachineChart = ({ chartData }: { chartData: ChartData }) => {
                 dynamicAnimation: {
                   speed: 1000
                 }
+              },
+              toolbar: {
+                show: false
               }
             },
             xaxis: {

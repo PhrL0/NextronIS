@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
-import { Providers } from './providers';
+import App from './global/app';
+import './global/index.css';
+import { Providers } from './global/providers';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

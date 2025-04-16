@@ -1,11 +1,11 @@
 // src/pages/DashboardPage.tsx
-import { machineApi } from '@/api';
-import { DataTable } from '@/components/data-table/data-table';
-import { Flex } from '@/components/layout';
-import { Loading } from '@/components/layout/loading';
-import { MachineCard } from '@/components/machine-card';
-import Typography from '@/components/typography';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { machineApi } from '@/data/api';
+import { MachineCard } from '@/features/machine/components/atom/machine-card';
+import { Flex } from '@/shared/components/atom/layout';
+import { Loading } from '@/shared/components/atom/layout/loading';
+import { ToggleGroup, ToggleGroupItem } from '@/shared/components/atom/toggle-group';
+import Typography from '@/shared/components/atom/typography';
+import { DataTable } from '@/shared/components/organisms/data-table/data-table';
 import { useQuery } from '@tanstack/react-query';
 import { Square, Table } from 'lucide-react';
 import { useState } from 'react';
