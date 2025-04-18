@@ -28,7 +28,7 @@ export const AppHeader = () => {
     });
 
   return (
-    <Header className="justify-between">
+    <Header className="sticky top-0 z-10 justify-between">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem onClick={toggleSidebar}>

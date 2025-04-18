@@ -3,8 +3,16 @@ import { Button } from '@/shared/components/atom/button';
 import { Card, CardContent } from '@/shared/components/atom/card';
 import { Flex } from '@/shared/components/atom/layout';
 import { Loading } from '@/shared/components/atom/layout/loading';
+import { ScrollArea } from '@/shared/components/atom/scroll-area';
 import Typography from '@/shared/components/atom/typography';
 import { Meter } from '@/shared/components/molecules/meter';
+import {
+  MorphingDialog,
+  MorphingDialogContainer,
+  MorphingDialogContent,
+  MorphingDialogTitle,
+  MorphingDialogTrigger
+} from '@/shared/components/molecules/morphing-dialog';
 import { MAX_POINTS } from '@/shared/constants/chart';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -106,6 +114,7 @@ function MachineIdPage() {
             max={100}
             min={0}
             className="w-full"
+            displayFormat="percentage"
           />
         </div>
         <LogsCard />
@@ -122,40 +131,99 @@ export default MachineIdPage;
 
 const LogsCard = () => {
   return (
-    <Card className="group/terminalcard relative size-full h-28 flex-1 cursor-pointer gap-2 overflow-hidden bg-neutral-800 px-4 py-2 transition-all hover:h-32 hover:scale-[1.025]">
-      <div className="absolute inset-0 size-full bg-linear-to-t from-neutral-800 to-transparent transition-colors group-hover/terminalcard:from-neutral-700/5"></div>
-      <Flex justify="between" align="center">
-        <Flex className="gap-1">
-          <div className="size-3 rounded-full bg-red-400" />
-          <div className="size-3 rounded-full bg-yellow-400" />
-          <div className="size-3 rounded-full bg-green-400" />
-        </Flex>
-        <p className="font-bold text-neutral-400">Logs</p>
-      </Flex>
-      {[
-        {
-          message: 'Maquina desligada',
-          date: '20:30:23'
-        },
-        {
-          message: 'Maquina ligada',
-          date: '17:30:23'
-        },
-        {
-          message: 'Maquina desligada',
-          date: '15/04/2025 20:30:23'
-        }
-      ].map((msg) => (
-        <Flex align="center" justify="between" key={msg.date}>
-          <Typography.Paragraph className="m-0 flex items-center justify-center text-sm font-bold text-neutral-500">
-            <ChevronRight size={16} />
-            {msg.message}
-          </Typography.Paragraph>
-          <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">{msg.date}</Typography.Paragraph>
-        </Flex>
-      ))}
-      <CornerRightDown className="absolute right-4 bottom-4 scale-100 animate-pulse stroke-3 text-neutral-400 opacity-100 shadow-white drop-shadow-xs transition-all group-hover/terminalcard:bottom-[-1rem] group-hover/terminalcard:scale-0 group-hover/terminalcard:text-white group-hover/terminalcard:opacity-0" />
-    </Card>
+    <MorphingDialog>
+      <MorphingDialogTrigger>
+        <Card className="group/terminalcard relative size-full h-28 flex-1 cursor-pointer gap-2 overflow-hidden bg-neutral-800 px-4 py-2 transition-all hover:h-32 hover:scale-[1.025]">
+          <div className="absolute inset-0 size-full bg-linear-to-t from-neutral-800 to-transparent transition-colors group-hover/terminalcard:from-neutral-700/5"></div>
+          <Flex justify="between" align="center">
+            <Flex className="gap-1">
+              <div className="size-3 rounded-full bg-red-400" />
+              <div className="size-3 rounded-full bg-yellow-400" />
+              <div className="size-3 rounded-full bg-green-400" />
+            </Flex>
+            <MorphingDialogTitle className="font-bold text-neutral-400">Logs</MorphingDialogTitle>
+          </Flex>
+          {[
+            {
+              message: 'Maquina desligada',
+              date: '20:30:23'
+            },
+            {
+              message: 'Maquina ligada',
+              date: '17:30:23'
+            },
+            {
+              message: 'Maquina desligada',
+              date: '15/04/2025 20:30:23'
+            }
+          ].map((msg) => (
+            <Flex align="center" justify="between" key={msg.date}>
+              <Typography.Paragraph className="m-0 flex items-center justify-center text-sm font-bold text-neutral-500">
+                <ChevronRight size={16} />
+                {msg.message}
+              </Typography.Paragraph>
+              <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">{msg.date}</Typography.Paragraph>
+            </Flex>
+          ))}
+          <CornerRightDown className="absolute right-4 bottom-4 scale-100 animate-pulse stroke-3 text-neutral-400 opacity-100 shadow-white drop-shadow-xs transition-all group-hover/terminalcard:bottom-[-1rem] group-hover/terminalcard:scale-0 group-hover/terminalcard:text-white group-hover/terminalcard:opacity-0" />
+        </Card>
+      </MorphingDialogTrigger>
+      <MorphingDialogContainer>
+        <MorphingDialogContent className="mt-[50dvh] size-full">
+          <Card className="group/terminalcard size-full gap-2 rounded-b-none border-none bg-neutral-800 px-4 py-2">
+            <Flex justify="between" align="center">
+              <Flex className="gap-1">
+                <div className="size-4 rounded-full bg-red-400" />
+                <div className="size-4 rounded-full bg-yellow-400" />
+                <div className="size-4 rounded-full bg-green-400" />
+              </Flex>
+              <MorphingDialogTitle className="font-bold text-neutral-400">Logs</MorphingDialogTitle>
+            </Flex>
+            <ScrollArea>
+              {[
+                {
+                  message: 'Maquina desligada',
+                  log: 'Device detected a power off',
+                  date: '20:30:23'
+                },
+                {
+                  message: 'Maquina ligada',
+                  log: 'Device detected a power on',
+                  date: '17:30:23'
+                },
+                {
+                  message: 'Maquina desligada',
+                  log: 'Device detected a power off',
+                  date: '15/04/2025 20:30:23'
+                },
+                {
+                  message: 'Alerta!',
+                  log: 'Device detected a high temperature',
+                  date: '15/04/2025 20:20:23'
+                }
+              ].map((msg) => (
+                <Flex align="start" justify="between" key={msg.date}>
+                  <Flex align="start" justify="start">
+                    <ChevronRight size={18} strokeWidth={3} className="mt-2 text-neutral-500" />
+                    <Flex align="start" className="gap-0" vertical>
+                      <Typography.Paragraph className="m-0 flex items-center justify-center text-sm font-bold text-neutral-500">
+                        {msg.message}
+                      </Typography.Paragraph>
+                      <Typography.Paragraph className="flex items-center justify-center text-xs font-bold text-neutral-600">
+                        {msg.log}
+                      </Typography.Paragraph>
+                    </Flex>
+                  </Flex>
+                  <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">
+                    {msg.date}
+                  </Typography.Paragraph>
+                </Flex>
+              ))}
+            </ScrollArea>
+          </Card>
+        </MorphingDialogContent>
+      </MorphingDialogContainer>
+    </MorphingDialog>
   );
 };
 

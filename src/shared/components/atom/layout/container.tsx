@@ -62,7 +62,7 @@ const Header = React.forwardRef<HTMLDivElement, HeaderProps>(({ className, style
   return (
     <div
       ref={ref}
-      className={cn('bg-background border-border flex h-12 items-center border-b px-4', className)}
+      className={cn('bg-background/50 border-border flex h-12 items-center border-b px-4 backdrop-blur-md', className)}
       style={style}
       {...props}
     >
