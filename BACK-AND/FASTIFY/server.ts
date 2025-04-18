@@ -20,7 +20,7 @@ async function start() {
 
     const wss = new WebSocketServer({ port: 8080 })
     console.log('🛰️ WebSocket rodando em ws://localhost:8080')
-
+    
     wss.on('connection', (socket) => {
       const clientId = wsHandler.addClient(socket)
 
