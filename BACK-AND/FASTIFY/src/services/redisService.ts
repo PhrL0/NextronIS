@@ -1,23 +1,33 @@
 import redis from "../config/redisCacher";
 
 export const redisService = {
-    saveCache: async (message: string, response: string, geminiHumanResponse:string, hashID:string): Promise<void> =>{
+    saveCache: async (message: string, response: string, geminiHumanResponse:string, hashID:string): Promise<string> =>{
         
-        //NÃO ESTÁ FUNCIONAL PRECISA ARRUMAR ISSO!
-        const key = `dataInCache${hashID}`;
+        const cacheKey = `dataInCache:${hashID}`;
 
-        //Criando um indice incremental para cada cache criado, que está sendo colocado no "array"
-        const index = await redis.incr(`${key}:index`);
-        const cacheKey = `${key}:${index}`;
-
-        //RPUSH <- Estamos empilhando os caches, nunca os sobrescrevendo
-        await redis.rpush(key,JSON.stringify({
-            userMessage:message,
+        await redis.hmset(cacheKey, {
+            userMessage: message,
             builtQuery: response,
-            geminiResponse:geminiHumanResponse,
-        }));
+            geminiResponse: geminiHumanResponse,
+        });
+        await redis.rpush('dataInCache', hashID);
 
         await redis.expire(cacheKey, 300);
 
+        return cacheKey
+    },
+    getCache: async (hashID: string): Promise<any> => {
+        const cacheKey = hashID;
+        
+        // Buscar todos os dados do hash específico
+        const cacheData = await redis.hgetall(cacheKey);
+
+        // Se o cache não existir ou tiver expirado (dados vazios), retorna erro
+        if (Object.keys(cacheData).length === 0) {
+            throw new Error('Cache não encontrado ou expirado.');
+        }
+
+        return cacheData;
     }
+
 }

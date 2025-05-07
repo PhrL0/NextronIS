@@ -46,3 +46,6 @@ prettier
 
 # (Se estiver usando ESModules ou import/export mesmo fora de React)
 tsconfig-paths
+
+#Para subir o container do REDIS
+docker run -d --name my-redis -p 6379:6379 redis

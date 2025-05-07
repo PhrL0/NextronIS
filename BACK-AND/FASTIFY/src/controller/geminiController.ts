@@ -4,6 +4,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import {queryGeminiValidator} from '../validation/queryGeminiValidator'
 import { helper } from '../utils/helper'
 import { geminiRepository } from '../infrastructure/repository/geminiRepository'
+import { redisService } from '../services/redisService'
 
 export const geminiController = {
    askGeminiController: async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
@@ -30,19 +31,13 @@ export const geminiController = {
 
            const result = await geminiRepository.fetchAllRecords(response);
            const geminiHumanResponse = await geminiService.askGeminiHuman(JSON.stringify(helper.convertBigInt(result)));
-
-        //    if(feedback){
-        //        const geminiMemory = await geminiRepository.logAIInteraction(message, response, geminiHumanResponse, feedback);
-
-        //        if (geminiMemory == null) {
-        //           return reply.status(500).send({ error: 'Erro ao tentar criar memória' });
-        //        }
-        //     }
+           const createCache = await redisService.saveCache(message,response,geminiHumanResponse,helper.createSHA256(moment))
 
            return reply.send({
                success: true,
                message: 'Interação processada com sucesso',
-               data: geminiHumanResponse
+               data: geminiHumanResponse,
+               cacheId: createCache
            });
 
        } catch (error) {

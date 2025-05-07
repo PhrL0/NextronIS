@@ -13,6 +13,7 @@ fastify.register(cors, {
 
 fastify.register(geminiRoutes)
 
+
 async function start() {
   try {
     await fastify.listen({ port: 3000 })

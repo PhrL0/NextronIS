@@ -47,7 +47,7 @@ model InteracaoIA {
   id                 Int      @id @default(autoincrement())
   perguntaUsuario    String
   queryMontada       String
-  respostaHumanizada String
+  respostaHumanizada String  @db.Text
   feedbackUsuario    String?     // Campo opcional
   criadoEm           DateTime    @default(now())
   atualizadoEm       DateTime    @updatedAt
