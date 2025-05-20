@@ -1,7 +1,16 @@
 import redis from "../config/redisCacher";
 
 export const redisService = {
-    saveCache: async (message: string, response: string, geminiHumanResponse:string, hashID:string): Promise<string> =>{
+    saveCache: async (
+        message: string,
+        response: string,
+        geminiHumanResponse:string,
+        hashID:string,
+        temperature: number,
+        topP: number,
+        topK: number,
+        maxOutputTokens: number,
+        responseMimeType: string): Promise<string> =>{
         
         const cacheKey = `dataInCache:${hashID}`;
 
@@ -9,6 +18,11 @@ export const redisService = {
             userMessage: message,
             builtQuery: response,
             geminiResponse: geminiHumanResponse,
+            temperature:temperature,
+            topP:topP,
+            topK:topK,
+            maxOutputTokens:maxOutputTokens,
+            responseMimeType:responseMimeType
         });
         await redis.rpush('dataInCache', hashID);
 

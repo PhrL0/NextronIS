@@ -4,7 +4,7 @@ const key = 'AIzaSyA8-wEOS87jCzlvnWknnqA-tRd0valJWdg'
 const generationConfig: GenerationConfig = {
     temperature: 0.9,
     topP: 0.95,
-    topK: 64,
+    topK: 70,
     maxOutputTokens: 1000,
     responseMimeType: "text/plain",
 };
@@ -12,7 +12,7 @@ const genAI = new GoogleGenerativeAI(key)
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-thinking-exp-01-21",generationConfig})
 let question: string = "";
 export const geminiService = {
-    askGeminiSQL: async (message: string): Promise<string> =>{
+    askGeminiSQL: async (message: string): Promise<{dataSQL:string}> =>{
         question = message;
         const chatSQL = model.startChat({
             history: [
@@ -119,9 +119,9 @@ export const geminiService = {
         const result = await chatSQL.sendMessage(message);
         const response = await result.response;
         
-        return response.text()
+        return {dataSQL: await response.text()}
     },
-    askGeminiHuman: async(message: any): Promise<string> =>{
+    askGeminiHuman: async(message: any): Promise<{dataHuman:string, hiperParamsHuman:GenerationConfig}> =>{
         console.log(`Pergunta do usuario:${question}, Resposta da consulta SQL:${message}`)
         const chatHuman = model.startChat({
             history:[
@@ -168,6 +168,6 @@ export const geminiService = {
         const result = await chatHuman.sendMessage(message);
         const response = await result.response;
 
-        return response.text();
+        return {dataHuman: await response.text(), hiperParamsHuman:generationConfig}
     }
 }

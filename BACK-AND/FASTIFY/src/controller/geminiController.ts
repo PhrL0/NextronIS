@@ -22,22 +22,30 @@ export const geminiController = {
                 moment = helper.catchMoment();
            }
 
-           const response = await geminiService.askGeminiSQL(message);
+           const {dataSQL} = await geminiService.askGeminiSQL(message);
 
           
-           if (!queryGeminiValidator.isSafeQuery(response)) {
+           if (!queryGeminiValidator.isSafeQuery(dataSQL)) {
                throw new Error("Query Insegura!");
            }
 
-           const result = await geminiRepository.fetchAllRecords(response);
-           const geminiHumanResponse = await geminiService.askGeminiHuman(JSON.stringify(helper.convertBigInt(result)));
-           const createCache = await redisService.saveCache(message,response,geminiHumanResponse,helper.createSHA256(moment))
-
+           const result = await geminiRepository.fetchAllRecords(dataSQL);
+           const {dataHuman,hiperParamsHuman} = await geminiService.askGeminiHuman(JSON.stringify(helper.convertBigInt(result)));
+           const createCache = await redisService.saveCache(message,
+            dataSQL,
+            dataHuman,
+            helper.createSHA256(moment),
+            hiperParamsHuman.temperature!,
+            hiperParamsHuman.topP!,
+            hiperParamsHuman.topK!,
+            hiperParamsHuman.maxOutputTokens!,
+            hiperParamsHuman.responseMimeType!)
+            
            return reply.send({
                success: true,
                message: 'Interação processada com sucesso',
-               data: geminiHumanResponse,
-               cacheId: createCache
+               data: dataHuman,
+               cacheId: createCache,
            });
 
        } catch (error) {
