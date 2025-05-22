@@ -1,0 +1,22 @@
+meta {
+  name: Thompson
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://127.0.0.1:8000/bestArm
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    { "id": 1, "success": 5, "failures": 3 },
+    { "id": 2, "success": 2, "failures": 6 },
+    { "id": 3, "success": 7, "failures": 4 },
+    { "id": 4, "success": 3, "failures": 8 },
+    { "id": 5, "success": 9, "failures": 2 }
+  }
+  
+}

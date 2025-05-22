@@ -1,6 +1,14 @@
-import { Prisma,PrismaClient } from "@prisma/client";
+import { HyperparameterArm, Prisma,PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
+type ArmData = Pick<HyperparameterArm, 'temperature' | 'topP' | 'topK' | 'maxOutputTokens' | 'responseMimeType'>;
+const defaultArm: ArmData = {
+  temperature: 0.7,
+  topP: 0.9,
+  topK: 40,
+  maxOutputTokens: 1024,
+  responseMimeType: 'text/plain'
+};
 
 export const hyperParameterArmRepository = {
     saveArm: async(temperature: number, topP: number, topK: number, maxOutputTokens: number, responseMimeType: string): Promise<any> =>{
@@ -69,5 +77,44 @@ export const hyperParameterArmRepository = {
             throw err;
         }
 
-    }      
+    },
+    getAllArms: async():Promise<any> =>{
+      try{
+        const arms = await prisma.hyperparameterArm.findMany({
+          select:{
+            id:true,
+            successes:true,
+            failures:true
+          }
+        });
+
+        if(!arms){
+          return defaultArm
+        }
+        return arms;
+      } catch (err) {
+        console.error("Erro ao achar todos os braços:", err);
+        throw err;
+      }
+    },
+    getBestArm: async(armId: string):Promise<ArmData> =>{
+      try {
+        const bestArm = await prisma.hyperparameterArm.findFirstOrThrow({
+          select:{
+            temperature: true,
+            topP: true,
+            topK: true,
+            maxOutputTokens: true,
+            responseMimeType: true
+          },
+          where:{
+            id:armId
+          }
+        });
+        return bestArm;
+      }catch (err) {
+        console.error("Erro ao achar o melhor braço:", err);
+        throw err;
+      }
+    }     
 }

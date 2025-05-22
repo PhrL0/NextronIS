@@ -1,16 +1,32 @@
 import { GenerationConfig, GoogleGenerativeAI } from "@google/generative-ai";
+import chooseBestArm from "./chooseBestArm";
 
-const key = 'AIzaSyA8-wEOS87jCzlvnWknnqA-tRd0valJWdg'
-const generationConfig: GenerationConfig = {
-    temperature: 0.9,
-    topP: 0.95,
-    topK: 70,
-    maxOutputTokens: 1000,
-    responseMimeType: "text/plain",
-};
-const genAI = new GoogleGenerativeAI(key)
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-thinking-exp-01-21",generationConfig})
+let model: any; // inicializada depois
+let generationConfig: GenerationConfig;
 let question: string = "";
+
+async function initGemini() {
+  const bestArm = await chooseBestArm();
+
+  generationConfig = {
+    temperature: Number(bestArm.temperature),
+    topP: Number(bestArm.topP),
+    topK: Number(bestArm.topK),
+    maxOutputTokens: Number(bestArm.maxOutputTokens),
+    responseMimeType: String(bestArm.responseMimeType),
+  };
+  
+
+  const key = 'AIzaSyA8-wEOS87jCzlvnWknnqA-tRd0valJWdg';
+  const genAI = new GoogleGenerativeAI(key);
+  model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash-thinking-exp-01-21",
+    generationConfig
+  });
+}
+
+initGemini().catch(console.error);
+
 export const geminiService = {
     askGeminiSQL: async (message: string): Promise<{dataSQL:string}> =>{
         question = message;

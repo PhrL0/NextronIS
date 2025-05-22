@@ -20,25 +20,24 @@ export const redisController = {
                 if (!dataRescued) {
                     return reply.status(404).send({ error: 'Cache não encontrado ou expirado.' });
                 }
-                const isArmed = await hyperParameterArmRepository.existingArm(
+                
+                let isArmed = await hyperParameterArmRepository.existingArm(
                     parseFloat(dataRescued.temperature),
                     parseFloat(dataRescued.topP),
                     parseFloat(dataRescued.topK),
                     parseFloat(dataRescued.maxOutputTokens),
                     dataRescued.responseMimeType)
 
-                if(isArmed){
-                    hyperParameterArmRepository.betaDistributionParams(isArmed.id,feedback)
-                } else {
-                    hyperParameterArmRepository.saveArm(
+
+                if(!isArmed){
+                    isArmed = await hyperParameterArmRepository.saveArm(
                         parseFloat(dataRescued.temperature),
                         parseFloat(dataRescued.topP),
                         parseFloat(dataRescued.topK),
                         parseFloat(dataRescued.maxOutputTokens),
                         dataRescued.responseMimeType
                     );
-                }
-
+                } 
                 const geminiMemory = await geminiRepository.logAIInteraction(
                     dataRescued.userMessage,
                     dataRescued.builtQuery,
@@ -46,7 +45,8 @@ export const redisController = {
                     feedback,
                     isArmed.id
                 );
-
+                
+                await hyperParameterArmRepository.betaDistributionParams(isArmed.id,feedback)
                 // Caso o registro falhe, retorna erro
                 if (!geminiMemory) {
                     return reply.status(500).send({ error: 'Erro ao registrar interação no banco de dados.' });
