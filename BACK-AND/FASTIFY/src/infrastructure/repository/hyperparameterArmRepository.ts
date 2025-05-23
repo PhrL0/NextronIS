@@ -1,14 +1,7 @@
 import { HyperparameterArm, Prisma,PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-type ArmData = Pick<HyperparameterArm, 'temperature' | 'topP' | 'topK' | 'maxOutputTokens' | 'responseMimeType'>;
-const defaultArm: ArmData = {
-  temperature: 0.7,
-  topP: 0.9,
-  topK: 40,
-  maxOutputTokens: 1024,
-  responseMimeType: 'text/plain'
-};
+export type ArmData = Pick<HyperparameterArm, 'temperature' | 'topP' | 'topK' | 'maxOutputTokens' | 'responseMimeType'>;
 
 export const hyperParameterArmRepository = {
     saveArm: async(temperature: number, topP: number, topK: number, maxOutputTokens: number, responseMimeType: string): Promise<any> =>{
@@ -87,11 +80,8 @@ export const hyperParameterArmRepository = {
             failures:true
           }
         });
-
-        if(!arms){
-          return defaultArm
-        }
         return arms;
+
       } catch (err) {
         console.error("Erro ao achar todos os braços:", err);
         throw err;

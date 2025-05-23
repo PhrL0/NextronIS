@@ -49,3 +49,6 @@ tsconfig-paths
 
 #Para subir o container do REDIS
 docker run -d --name my-redis -p 6379:6379 redis
+
+
+npx prisma migrate dev --name init

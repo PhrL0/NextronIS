@@ -1,13 +1,13 @@
 import { GenerationConfig, GoogleGenerativeAI } from "@google/generative-ai";
 import chooseBestArm from "./chooseBestArm";
 
-let model: any; // inicializada depois
+let model: any; 
 let generationConfig: GenerationConfig;
 let question: string = "";
 
 async function initGemini() {
   const bestArm = await chooseBestArm();
-
+  
   generationConfig = {
     temperature: Number(bestArm.temperature),
     topP: Number(bestArm.topP),
@@ -16,20 +16,22 @@ async function initGemini() {
     responseMimeType: String(bestArm.responseMimeType),
   };
   
-
+  console.log("Estou no gemini service:", bestArm)
   const key = 'AIzaSyA8-wEOS87jCzlvnWknnqA-tRd0valJWdg';
   const genAI = new GoogleGenerativeAI(key);
-  model = genAI.getGenerativeModel({
+  
+  return genAI.getGenerativeModel({
     model: "gemini-2.0-flash-thinking-exp-01-21",
     generationConfig
   });
 }
 
-initGemini().catch(console.error);
+
 
 export const geminiService = {
     askGeminiSQL: async (message: string): Promise<{dataSQL:string}> =>{
         question = message;
+        model = await initGemini().catch(console.error);
         const chatSQL = model.startChat({
             history: [
                 {   
@@ -139,6 +141,7 @@ export const geminiService = {
     },
     askGeminiHuman: async(message: any): Promise<{dataHuman:string, hiperParamsHuman:GenerationConfig}> =>{
         console.log(`Pergunta do usuario:${question}, Resposta da consulta SQL:${message}`)
+        model = await initGemini().catch(console.error);
         const chatHuman = model.startChat({
             history:[
                 {

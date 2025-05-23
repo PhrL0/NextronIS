@@ -4,8 +4,6 @@ import cv2
 from scipy.stats import beta
 import matplotlib.pyplot as plt
 
-
-
 class ThompsonSampling:
     # define a function which returns an image as numpy array from figure
     def get_img_from_fig(fig, dpi=120):
@@ -31,7 +29,7 @@ class ThompsonSampling:
 
             #A distribuição Beta gera números entre 0 e 1 (como uma probabilidade)
             #Quanto maior alpha em relação a beta, maior a probabilidade amostrada
-            arm['id']: np.random.beta(arm['success'], arm['failures'])
+            arm.id: np.random.beta(arm.successes + 1, arm.failures + 1)
             for arm in arms_json
         }
 
