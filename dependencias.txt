@@ -52,3 +52,12 @@ docker run -d --name my-redis -p 6379:6379 redis
 
 
 npx prisma migrate dev --name init
+
+
+Nosso sistema aplica o modelo de Multi-Armed Bandit, onde cada conjunto de hiperparâmetros da IA é tratado como um "braço" em um jogo de escolhas adaptativas.
+
+O algoritmo Thompson Sampling atua como uma inteligência que simula milhares de futuros possíveis a cada nova interação. Ele estima probabilisticamente qual braço — ou seja, qual configuração da IA — tem maior chance de oferecer a melhor resposta, com base em feedbacks anteriores.
+
+Essa abordagem garante um equilíbrio dinâmico entre exploração e exploração: testamos novas possibilidades, mas priorizamos aquelas com histórico promissor.
+
+Como resultado, o sistema se torna autoadaptável: ele aprende não só com o acerto, mas com a incerteza — e transforma cada feedback em uma peça da arquitetura de decisão futura.
