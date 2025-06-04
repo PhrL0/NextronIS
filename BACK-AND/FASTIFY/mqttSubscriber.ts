@@ -2,7 +2,7 @@
 import mqttClient from '../FASTIFY/src/config/mqttClient'
 import { wsHandler } from './src/websocket/wsHandler'
 
-const TOPICS = ['teste/topico'] 
+const TOPICS = ['esp32/sensor1','esp32/sensor2','esp32/sensor3','esp32/sensor4'] 
 
 // Subscreve aos tópicos
 mqttClient.subscribe(TOPICS, { qos: 0 }, (err, granted) => {
@@ -19,7 +19,7 @@ mqttClient.on('message', (topic, message) => {
     const payload = message.toString()
     console.log(`[MQTT RECEBIDO] Tópico: ${topic} | Mensagem: ${payload}`)
 
-    if (topic === 'sensor/temperatura') {
+    if (topic === 'esp32/sensor1') {
       const data = JSON.parse(payload)
       console.log('[DADO TEMPERATURA]:', data)
     }

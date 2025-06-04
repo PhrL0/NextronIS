@@ -1,4 +1,4 @@
-#include "Sensor_DS18B20.h"
+//#include "Sensor_DS18B20.h"
 #include "Mqtt_Service.h"
 #include "Converter.h"
 
@@ -14,18 +14,17 @@ float gerarFloatAleatorio(float min, float max) {
 
 void setup() {
   Serial.begin(115200);
-  startTemperature();
   setup_wifi(ssid,password);
-  mqtt_setup(broker);
+  mqtt_setup(broker,1883);
   randomSeed(analogRead(A0));
 }
 
 void loop() {
   mqtt_loop();
-  //float temp = readTemperature();
-  float aleatorio = gerarFloatAleatorio(0.0, 1.0);
-  mqtt_publish("esp32/sensor",floatToStr(aleatorio,2));
-  //Serial.print("Temperautra:");
-  //Serial.println(readTemperature());
+  mqtt_publish("esp32/sensor1",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
+  mqtt_publish("esp32/sensor2",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
+  mqtt_publish("esp32/sensor3",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
+  mqtt_publish("esp32/sensor4",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
+
   delay(2000);
 }
