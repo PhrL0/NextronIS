@@ -1,8 +1,7 @@
 
 import mqttClient from '../FASTIFY/src/config/mqttClient'
-import { wsHandler } from './src/websocket/wsHandler'
 
-const TOPICS = ['esp32/sensor1','esp32/sensor2','esp32/sensor3','esp32/sensor4'] 
+const TOPICS = ['esp32/temperatura','esp32/rpm','esp32/nivelOleo','esp32/corrente'] 
 
 // Subscreve aos tópicos
 mqttClient.subscribe(TOPICS, { qos: 0 }, (err, granted) => {
@@ -23,8 +22,6 @@ mqttClient.on('message', (topic, message) => {
       const data = JSON.parse(payload)
       console.log('[DADO TEMPERATURA]:', data)
     }
-    wsHandler.broadcast(JSON.stringify({topic,payload}))
-
   } catch (error) {
     console.error('[ERRO DE PARSE MQTT]:', error)
   }

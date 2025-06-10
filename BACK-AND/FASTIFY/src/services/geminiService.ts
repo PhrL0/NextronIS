@@ -92,43 +92,22 @@ export const geminiService = {
                 {
                   role:"user",
                   parts:[{text:` O esquema da minha tabela no banco de dados está assim:
-                          model User {
-                          id     Int     @id @default(autoincrement())
-                          name   String
-                          email  String  @unique
-                          vendas Venda[] // Um usuário pode ter várias vendas
+                         model dados {
+                          id          Int      @id @default(autoincrement())
+                          data        DateTime @db.Date
+                          hora        DateTime @db.Time
+                          temperatura Float
+                          nivel       Float
+                          rpm         Float
+                          corrente    Float
                         }
-
-                        model Produto {
-                          id           Int         @id @default(autoincrement())
-                          nome         String
-                          descricao    String?
-                          preco        Float
-                          estoque      Int
-                          criadoEm     DateTime    @default(now())
-                          atualizadoEm DateTime    @updatedAt
-                          itensVenda   ItemVenda[] // Relacionamento com os itens de venda
+                                        
+                        model usuarios {
+                          id       Int     @id @default(autoincrement())
+                          usuario  String  @unique @db.VarChar(50)
+                          email    String  @unique @db.VarChar(100)
+                          senha    String  @db.VarChar(255) // Armazenar hash, nunca a senha em texto puro
                         }
-
-                        model Venda {
-                          id         Int         @id @default(autoincrement())
-                          data       DateTime    @default(now())
-                          valorTotal Float
-                          usuarioId  Int
-                          usuario    User        @relation(fields: [usuarioId], references: [id])
-                          itens      ItemVenda[] // Lista de itens da venda (cada item com produto e quantidade)
-                        }
-                        model ItemVenda {
-                          id         Int      @id @default(autoincrement())
-                          vendaId    Int
-                          produtoId  Int
-                          quantidade Int
-                          precoUnit  Float
-
-                          venda      Venda    @relation(fields: [vendaId], references: [id])
-                          produto    Produto  @relation(fields: [produtoId], references: [id])
-                        }
-
                         }`}]
                 },
             ]

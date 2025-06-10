@@ -24,11 +24,9 @@ export const geminiController = {
 
            const {dataSQL} = await geminiService.askGeminiSQL(message);
 
-          
-           if (!queryGeminiValidator.isSafeQuery(dataSQL)) {
-               throw new Error("Query Insegura!");
-           }
-
+            if (queryGeminiValidator.isSafeQuery(dataSQL)) {
+                 throw new Error("Query Insegura!");
+            }
            const result = await geminiRepository.fetchAllRecords(dataSQL);
            const {dataHuman,hiperParamsHuman} = await geminiService.askGeminiHuman(JSON.stringify(helper.convertBigInt(result)));
            const createCache = await redisService.saveCache(message,

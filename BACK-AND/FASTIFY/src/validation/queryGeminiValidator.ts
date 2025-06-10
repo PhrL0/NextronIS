@@ -1,5 +1,6 @@
 export const queryGeminiValidator = {
     isSafeQuery:(query: string): boolean =>{
+    
         //Tira todos os espaços em branco e joga para caixa baixa
         const trimmed = query.trim().toLowerCase();
         //Verifica se "trimmed" começa com um "select"

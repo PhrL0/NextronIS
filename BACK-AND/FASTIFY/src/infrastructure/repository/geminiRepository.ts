@@ -4,7 +4,9 @@ const prisma = new PrismaClient();
 
 export const geminiRepository = {
     fetchAllRecords: async(query: string): Promise<any[]> =>{
-        const result = await prisma.$queryRawUnsafe(String(query));
+        console.log("Estou no repository",query)
+        const limpo = query.replace(/^['"]|['"]$/g, '');
+        const result = await prisma.$queryRawUnsafe(limpo);
         return result as any[]; 
     },
     logAIInteraction: async(askUser: string,

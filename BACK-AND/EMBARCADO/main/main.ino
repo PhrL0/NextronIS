@@ -4,7 +4,7 @@
 
 const char* ssid = "linksys";
 const char* password = "";
-const char* broker = "10.110.12.51";
+const char* broker = "10.110.12.49";
 
 float gerarFloatAleatorio(float min, float max) {
   long inteiro = random(10000); // número entre 0 e 9999
@@ -21,10 +21,10 @@ void setup() {
 
 void loop() {
   mqtt_loop();
-  mqtt_publish("esp32/sensor1",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
-  mqtt_publish("esp32/sensor2",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
-  mqtt_publish("esp32/sensor3",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
-  mqtt_publish("esp32/sensor4",floatToStr( gerarFloatAleatorio(0.0, 1.0),2));
+  mqtt_publish("esp32/temperatura",floatToStr( gerarFloatAleatorio(1, 100),2));
+  mqtt_publish("esp32/rpm",floatToStr( gerarFloatAleatorio(1, 100),2));
+  mqtt_publish("esp32/nivelOleo",floatToStr( gerarFloatAleatorio(1, 100),2));
+  mqtt_publish("esp32/corrente",floatToStr( gerarFloatAleatorio(1, 100),2));
 
   delay(2000);
 }
