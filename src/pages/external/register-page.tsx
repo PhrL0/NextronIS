@@ -42,20 +42,20 @@ const RegisterPage: React.FC = () => {
           <CardContent>
             <form onSubmit={onFinish} className="w-full space-y-3">
               <div className="space-y-2">
-                <Input name="email" placeholder="E-mail" className="rounded-b-none" prefix={<Mail size={16} />} />
+                <Input name="email" placeholder="E-mail" prefix={<Mail size={16} />} />
 
                 <Input
                   placeholder="Password"
                   name="password"
                   type="password"
-                  className="rounded-t-none rounded-b-none border-t-0 border-b-0"
+                  className="border-t-0 border-b-0"
                   prefix={<Lock size={16} />}
                 />
                 <Input
                   placeholder="Password Again"
                   name="password"
                   type="password"
-                  className="rounded-t-none border-t-0"
+                  className="border-t-0"
                   prefix={<Lock size={16} />}
                 />
               </div>

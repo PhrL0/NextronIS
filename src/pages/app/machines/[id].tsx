@@ -79,7 +79,7 @@ function MachineIdPage() {
   if (error) return <div>Erro ao localizar a maquina...</div>;
 
   return (
-    <div className="grid w-full grid-cols-1 gap-6 p-4 2xl:grid-cols-2">
+    <div className="grid w-full grid-cols-1 gap-6 p-4">
       <Flex justify="between" align="start" className="w-full">
         <Flex vertical>
           <Typography.Title level={2}>{data?.machine.name}</Typography.Title>
@@ -133,16 +133,18 @@ const LogsCard = () => {
   return (
     <MorphingDialog>
       <MorphingDialogTrigger>
-        <Card className="group/terminalcard relative size-full h-28 flex-1 cursor-pointer gap-2 overflow-hidden bg-neutral-800 px-4 py-2 transition-all hover:h-32 hover:scale-[1.025]">
+        <Card className="group/terminalcard relative size-full h-28 flex-1 cursor-pointer gap-2 overflow-hidden bg-neutral-800 px-4 py-2 transition-all hover:scale-[1.025]">
           <div className="absolute inset-0 size-full bg-linear-to-t from-neutral-800 to-transparent transition-colors group-hover/terminalcard:from-neutral-700/5"></div>
-          <Flex justify="between" align="center">
-            <Flex className="gap-1">
-              <div className="size-3 rounded-full bg-red-400" />
-              <div className="size-3 rounded-full bg-yellow-400" />
-              <div className="size-3 rounded-full bg-green-400" />
+          <MorphingDialogTitle className="font-bold text-neutral-400">
+            <Flex justify="between" align="center">
+              <Flex className="gap-1">
+                <div className="size-3 rounded-full bg-red-400" />
+                <div className="size-3 rounded-full bg-yellow-400" />
+                <div className="size-3 rounded-full bg-green-400" />
+              </Flex>
+              Logs
             </Flex>
-            <MorphingDialogTitle className="font-bold text-neutral-400">Logs</MorphingDialogTitle>
-          </Flex>
+          </MorphingDialogTitle>
           {[
             {
               message: 'Maquina desligada',
@@ -169,16 +171,18 @@ const LogsCard = () => {
         </Card>
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
-        <MorphingDialogContent className="mt-[50dvh] size-full">
+        <MorphingDialogContent className="mt-[50dvh] size-full max-w-5xl">
           <Card className="group/terminalcard size-full gap-2 rounded-b-none border-none bg-neutral-800 px-4 py-2">
-            <Flex justify="between" align="center">
-              <Flex className="gap-1">
-                <div className="size-4 rounded-full bg-red-400" />
-                <div className="size-4 rounded-full bg-yellow-400" />
-                <div className="size-4 rounded-full bg-green-400" />
+            <MorphingDialogTitle className="font-bold text-neutral-400">
+              <Flex justify="between" align="center">
+                <Flex className="gap-1">
+                  <div className="size-4 rounded-full bg-red-400" />
+                  <div className="size-4 rounded-full bg-yellow-400" />
+                  <div className="size-4 rounded-full bg-green-400" />
+                </Flex>
+                Logs
               </Flex>
-              <MorphingDialogTitle className="font-bold text-neutral-400">Logs</MorphingDialogTitle>
-            </Flex>
+            </MorphingDialogTitle>
             <ScrollArea>
               {[
                 {

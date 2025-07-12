@@ -9,7 +9,7 @@ import { useUserDecode } from '@/shared/hooks/use-user';
 import { cn } from '@/shared/lib/utils';
 import { isEmptyObject } from '@/shared/utils/validators';
 import Autoplay from 'embla-carousel-autoplay';
-import { Dot } from 'lucide-react';
+import { CircleArrowRight, Dot } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ReactNode, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -135,9 +135,9 @@ const ResponsiveHeader = ({ yOffset }: { yOffset: number }) => {
         align="center"
         justify="between"
         wrap="wrap"
-        className={`w-full rounded-full transition-all duration-200 ease-in-out ${
+        className={`w-full rounded-3xl transition-all duration-200 ease-in-out ${
           isScrolled
-            ? 'mx-16 my-0 border border-neutral-200 bg-neutral-200/50 p-4 px-8 shadow-xl backdrop-blur-md dark:border-neutral-700 dark:bg-black/50'
+            ? 'my-0 border border-neutral-200 bg-neutral-200/50 p-4 px-8 shadow-xl backdrop-blur-md dark:border-neutral-700 dark:bg-black/50'
             : 'p-2'
         }`}
       >
@@ -146,8 +146,9 @@ const ResponsiveHeader = ({ yOffset }: { yOffset: number }) => {
           <ModeToggle />
           {!isEmptyObject(user) ? (
             <Link to="/app">
-              <Button className="rounded-full bg-linear-to-tr from-sky-300 to-green-400 shadow-lg inset-shadow-sm shadow-green-400/25 inset-shadow-cyan-300 transition-colors duration-500 hover:from-green-400 hover:to-sky-300">
+              <Button className="group/gotoappbutton rounded-full bg-linear-to-tr from-sky-300 to-green-400 inset-shadow-sm inset-shadow-cyan-300 transition-all duration-300 hover:from-green-400 hover:to-sky-300 hover:shadow-lg hover:shadow-green-400/25">
                 Ir para o aplicativo
+                <CircleArrowRight className="size-0 transition-all duration-100 group-hover/gotoappbutton:size-5" />
               </Button>
             </Link>
           ) : (
@@ -232,10 +233,10 @@ const HeroSection = () => {
         >
           {isEmptyObject(user) && (
             <Link to="/login">
-              <Button className="w-60 transform rounded-lg">Entrar</Button>
+              <Button className="w-60 transform">Entrar</Button>
             </Link>
           )}
-          <Button className="w-60 transform rounded-lg" variant="outline">
+          <Button className="w-60 transform" variant="outline">
             Suporte
           </Button>
         </motion.div>

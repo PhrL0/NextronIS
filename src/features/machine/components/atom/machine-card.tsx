@@ -26,9 +26,9 @@ export const MachineCard = ({ machine }: MachineCardProps) => {
   return (
     <Card
       className={clsx(
-        `bg-${warningColor}-600/50 bg-green-500/5`,
+        `bg-${warningColor}-600/50`,
         `border-${warningColor}-700/25`,
-        `shadow-${warningColor}-700/20 shadow-md`,
+        `shadow-${warningColor}-700/20 shadow-none`,
         'min-w-xs gap-0 pb-0'
       )}
     >

@@ -177,7 +177,7 @@ export const Meter = ({
   const variantClasses = getVariantClasses();
 
   // Animation classes
-  const animationClasses = animate ? 'transition-all duration-700' : '';
+  const animationClasses = animate ? 'transition-all duration-700 ease-in-out' : '';
 
   // Track color
   const trackColorClass = trackColor || 'bg-neutral-200 dark:bg-neutral-800';
