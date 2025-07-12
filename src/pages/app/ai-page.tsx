@@ -87,7 +87,7 @@ function renderMessage(message: Message) {
     return (
       <Flex align="start" justify="end" className="mb-4">
         <div className="mt-1 flex w-3/4 justify-end px-2 shadow-none">
-          <div className="w-max rounded-xl bg-neutral-100 p-3 dark:bg-neutral-900">{message.message}</div>
+          <div className="w-max rounded-xl bg-neutral-100 p-3 dark:bg-neutral-950">{message.message}</div>
         </div>
         <Avatar>
           <AvatarFallback>

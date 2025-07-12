@@ -151,7 +151,7 @@ const UserCard = () => {
             </Flex>
           </Card>
         </MorphingPopoverTrigger>
-        <MorphingPopoverContent className="bottom-0 w-full space-y-4 bg-neutral-100 dark:bg-neutral-900">
+        <MorphingPopoverContent className="bottom-0 w-full space-y-4 bg-neutral-100 dark:bg-neutral-950">
           {menuButtons.map((button) => (
             <Button className="w-full" variant={button.variant} onClick={button.onClick} key={button.label}>
               {button.icon} {button.label}

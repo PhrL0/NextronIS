@@ -1,3 +1,4 @@
+import logo from '@/assets/Logo.png';
 import { Button } from '@/shared/components/atom/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/atom/card';
 import { Flex } from '@/shared/components/atom/layout';
@@ -40,7 +41,7 @@ export const LandingPage = () => {
         <HeroSection />
       </GridBackground>
 
-      <main className="flex flex-col items-center justify-center gap-8 bg-white dark:bg-black">
+      <main className="flex flex-col items-center justify-center gap-8 bg-neutral-100 dark:bg-neutral-950">
         <Flex vertical className="max-w-4xl gap-12 p-4">
           <Flex align="center" justify="between" wrap="wrap" className="w-full">
             {/* Seção Sensor */}
@@ -115,7 +116,7 @@ const ResponsiveHeader = ({ yOffset }: { yOffset: number }) => {
   return (
     <motion.header
       className={`top-0 z-[100] flex w-full bg-transparent transition-transform duration-100 duration-200 ease-in-out ${
-        isScrolled ? 'sticky p-4' : 'relative border-b-black bg-white p-4 dark:bg-black'
+        isScrolled ? 'sticky items-center justify-center p-4' : 'relative border-b-black p-4 dark:bg-neutral-950'
       }`}
       initial={{
         opacity: 0,
@@ -135,14 +136,14 @@ const ResponsiveHeader = ({ yOffset }: { yOffset: number }) => {
         align="center"
         justify="between"
         wrap="wrap"
-        className={`w-full rounded-3xl transition-all duration-200 ease-in-out ${
+        className={`rounded-3xl transition-all duration-200 ease-in-out ${
           isScrolled
-            ? 'my-0 border border-neutral-200 bg-neutral-200/50 p-4 px-8 shadow-xl backdrop-blur-md dark:border-neutral-700 dark:bg-black/50'
-            : 'p-2'
+            ? 'my-0 flex gap-8 border border-neutral-600 bg-neutral-800/50 p-4 px-8 shadow-xl backdrop-blur-md dark:border-neutral-700 dark:bg-neutral-950/50'
+            : 'w-full p-2'
         }`}
       >
-        <p>Nextron</p>
-        <Flex className="gap-4" align="center">
+        <img src={logo} alt="Logo" className="hidden h-6 w-min object-contain sm:block" />
+        <Flex className="flex-1 justify-center gap-4 sm:justify-end" align="center">
           <ModeToggle />
           {!isEmptyObject(user) ? (
             <Link to="/app">
@@ -179,13 +180,13 @@ const HeroSection = () => {
           duration: 0.75,
           delay: 1
         }}
-        className="max-w-3xl min-w-md bg-radial from-white to-transparent dark:from-black"
+        className="max-w-3xl min-w-md bg-radial from-white to-transparent dark:from-neutral-950"
         layout
       >
         <EyeLooking />
       </motion.div>
       <Flex vertical align="center" className="max-w-4xl">
-        <h1 className="px-16 text-center text-4xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="px-16 text-center text-4xl font-bold text-neutral-950 dark:text-neutral-100">
           {'Monitore suas máquinas com inteligência e agilidade'.split(' ').map((word, index) => (
             <motion.span
               key={index}
@@ -343,7 +344,7 @@ const GridBackground = ({ children }: { children: ReactNode }) => {
           'dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]'
         )}
       />
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-neutral-100 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-neutral-950"></div>
       <div className="rleative z-20">{children}</div>
     </motion.div>
   );

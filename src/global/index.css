@@ -74,7 +74,6 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-  --spacing: 0.3rem;
 }
 
 @theme inline {
@@ -158,11 +157,11 @@
 }
 
 body {
-  background-color: white;
+  background-color: var(--color-neutral-100);
 }
 .dark {
   body {
-    background-color: black;
+    background-color: var(--color-neutral-950);
   }
 }
 
