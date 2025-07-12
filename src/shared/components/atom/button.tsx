@@ -12,7 +12,7 @@ const buttonVariants = cva(
         destructive: 'bg-red-500 text-white shadow-sm hover:bg-red-600 focus-visible:ring-red-500',
         outline:
           'border border-emerald-500 bg-transparent text-emerald-500 shadow-sm hover:bg-emerald-50/10 focus-visible:ring-emerald-500',
-        secondary: 'bg-emerald-100/50 text-emerald-700 shadow-sm hover:bg-emerald-200/5 focus-visible:ring-emerald-500',
+        secondary: 'bg-emerald-100/5 text-emerald-700 shadow-sm hover:bg-emerald-200/25 focus-visible:ring-emerald-500',
         ghost: 'text-emerald-600 hover:bg-emerald-50/10 hover:text-emerald-700',
         link: 'text-emerald-600 underline-offset-4 hover:underline hover:text-emerald-700'
       },

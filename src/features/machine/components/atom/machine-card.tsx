@@ -70,7 +70,7 @@ export const MachineCard = ({ machine }: MachineCardProps) => {
             />
           </div>
           <Link to={`${machine.machine_id}`}>
-            <Button variant="ghost" size="icon">
+            <Button variant="secondary" size="icon">
               <ChevronsUp />
             </Button>
           </Link>
