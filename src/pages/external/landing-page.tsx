@@ -104,7 +104,7 @@ Nossos sensores avançados monitoram condições ambientais e operacionais em te
       </main>
 
       {/* Rodapé */}
-      <footer className="p-4 text-center">MonitorPro ©2025 - Criado com Ant Design</footer>
+      <footer className="p-4 text-center"></footer>
     </>
   );
 };
@@ -146,7 +146,7 @@ const ResponsiveHeader = ({ yOffset }: { yOffset: number }) => {
           <ModeToggle />
           {!isEmptyObject(user) ? (
             <Link to="/app">
-              <Button className="group/gotoappbutton rounded-full bg-linear-to-tr from-sky-300 to-green-400 inset-shadow-sm inset-shadow-cyan-300 transition-all duration-300 hover:from-green-400 hover:to-sky-300 hover:shadow-lg hover:shadow-green-400/25">
+              <Button className="group/gotoappbutton bg-linear-to-tr from-sky-300 to-green-400 inset-shadow-sm inset-shadow-cyan-300 transition-all duration-300 hover:from-green-400 hover:to-sky-300 hover:shadow-lg hover:shadow-green-400/25">
                 Ir para o aplicativo
                 <CircleArrowRight className="size-0 transition-all duration-100 group-hover/gotoappbutton:size-5" />
               </Button>

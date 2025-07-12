@@ -1,8 +1,10 @@
+import logo from '@/assets/logo.png';
+import logoMinimal from '@/assets/LogoMinimal.png';
 import { useAuth } from '@/context/auth-context';
 import { useUserDecode } from '@/shared/hooks/use-user';
 import { Bot, Factory, LayoutDashboard, LogOut, Settings, User } from 'lucide-react';
 import { JSX, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../../shared/components/atom/avatar';
 import { Button } from '../../../../shared/components/atom/button';
 import { Card } from '../../../../shared/components/atom/card';
@@ -79,7 +81,9 @@ export const AppSidebar = () => {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="m-2">
-        <Typography.Title level={3}>{open ? 'Nextron' : 'N'}</Typography.Title>
+        <Link to="/">
+          <img src={open ? logo : logoMinimal} alt="Logo" className="h-10 w-full object-contain" />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
