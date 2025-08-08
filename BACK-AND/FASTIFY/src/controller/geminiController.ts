@@ -24,7 +24,7 @@ export const geminiController = {
 
            const {dataSQL} = await geminiService.askGeminiSQL(message);
 
-            if (queryGeminiValidator.isSafeQuery(dataSQL)) {
+            if (!queryGeminiValidator.isSafeQuery(dataSQL)) {
                  throw new Error("Query Insegura!");
             }
            const result = await geminiRepository.fetchAllRecords(dataSQL);

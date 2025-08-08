@@ -92,22 +92,22 @@ export const geminiService = {
                 {
                   role:"user",
                   parts:[{text:` O esquema da minha tabela no banco de dados está assim:
-                         model dados {
-                          id          Int      @id @default(autoincrement())
-                          data        DateTime @db.Date
-                          hora        DateTime @db.Time
-                          temperatura Float
-                          nivel       Float
-                          rpm         Float
-                          corrente    Float
+                        model sensorData {
+                            id          Int      @id @default(autoincrement())
+                            createdAt   DateTime   @default(now())
+                            temperatura Float
+                            nivel       Float
+                            rpm         Float
+                            corrente    Float
                         }
-                                        
-                        model usuarios {
-                          id       Int     @id @default(autoincrement())
-                          usuario  String  @unique @db.VarChar(50)
-                          email    String  @unique @db.VarChar(100)
-                          senha    String  @db.VarChar(255) // Armazenar hash, nunca a senha em texto puro
+
+                        model usuarios {        
+                            id       Int     @id @default(autoincrement())
+                            usuario  String  @unique @db.VarChar(50)
+                            email    String  @unique @db.VarChar(100)
+                            senha    String  @db.VarChar(255) // Armazenar hash, nunca a senha em texto puro
                         }
+
                         }`}]
                 },
             ]
