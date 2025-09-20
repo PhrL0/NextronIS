@@ -45,7 +45,7 @@ export const AiPage = () => {
     setHistory((prev) => [...prev, aiMessage]);
   }
   return (
-    <Flex className="mx-auto w-full max-w-6xl flex-1 overflow-auto p-4 text-sm" vertical>
+    <Flex className="mx-auto size-full flex-1 overflow-auto p-4 text-sm" vertical>
       <Flex align="center" className="mb-4 gap-4">
         <Circle size={6} strokeWidth={4} className="text-black" />
         <Typography.Title level={4} className="flex items-center justify-between gap-4">

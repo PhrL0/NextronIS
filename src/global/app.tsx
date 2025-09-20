@@ -1,4 +1,6 @@
 import { PrivateRoute } from '@/features/auth/components/atom/private-route';
+import MachineTypeRegisterPage from '@/pages/app/register/machine-type';
+import RoleRegisterPage from '@/pages/app/register/role';
 import React from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import MyApp from '../pages/app';
@@ -46,6 +48,19 @@ const router = createBrowserRouter([
           {
             path: 'ai',
             element: <AiPage />
+          },
+          {
+            path: 'register',
+            children: [
+              {
+                path: 'machineType',
+                element: <MachineTypeRegisterPage />
+              },
+              {
+                path: 'role',
+                element: <RoleRegisterPage />
+              }
+            ]
           }
         ]
       },

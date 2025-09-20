@@ -1,4 +1,4 @@
-import { machineApi } from '@/data/api';
+import { activityLogApi, machineApi } from '@/data/api';
 import { Button } from '@/shared/components/atom/button';
 import { Card, CardContent } from '@/shared/components/atom/card';
 import { Flex } from '@/shared/components/atom/layout';
@@ -16,10 +16,10 @@ import {
 import { MAX_POINTS } from '@/shared/constants/chart';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { ChevronRight, CornerRightDown, EllipsisVertical, Gauge, Plug, Thermometer } from 'lucide-react';
+import { ArrowLeft, ChevronRight, CornerRightDown, EllipsisVertical, Gauge, Plug, Thermometer } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import Chart from 'react-apexcharts';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 
 function MachineIdPage() {
   const { machine_id } = useParams();
@@ -82,12 +82,19 @@ function MachineIdPage() {
     <div className="grid w-full grid-cols-1 gap-6 p-4">
       <Flex justify="between" align="start" className="w-full">
         <Flex vertical>
-          <Typography.Title level={2}>{data?.machine.name}</Typography.Title>
+          <Flex align="center" justify="center">
+            <Link to={'/app/machines'}>
+              <Button size="icon">
+                <ArrowLeft />
+              </Button>
+            </Link>
+            <Typography.Title level={2}>{data?.machine?.name}</Typography.Title>
+          </Flex>
           <Typography.Paragraph className="text -xs text-neutral-800/50 dark:text-neutral-100/15">
-            {data?.machine.description}
+            {data?.machine?.description}
           </Typography.Paragraph>
         </Flex>
-        <Button children={<EllipsisVertical size={16} />} variant="ghost" size="icon" />
+        <Button children={<EllipsisVertical size={16} />} size="icon" />
       </Flex>
       <div className="grid size-full grid-cols-1 gap-8 p-4 lg:grid-cols-2">
         <div className="flex w-full flex-col items-start justify-start gap-2">
@@ -130,6 +137,21 @@ function MachineIdPage() {
 export default MachineIdPage;
 
 const LogsCard = () => {
+  const { machine_id } = useParams();
+  const { data } = useQuery({
+    queryKey: ['activityLogApi/machine_id'],
+    queryFn: () => {
+      if (!machine_id) throw new Error('Machine ID is required');
+      const id = parseInt(machine_id);
+      if (isNaN(id)) throw new Error('Invalid Machine ID');
+
+      return activityLogApi.activityLogGet().then((res) => ({
+        ...res.data,
+        activity_logs: res.data.activity_logs.filter((acl) => acl.machine_id == machine_id)
+      }));
+    }
+  });
+
   return (
     <MorphingDialog>
       <MorphingDialogTrigger>
@@ -145,26 +167,16 @@ const LogsCard = () => {
               Logs
             </Flex>
           </MorphingDialogTitle>
-          {[
-            {
-              message: 'Maquina desligada',
-              date: '20:30:23'
-            },
-            {
-              message: 'Maquina ligada',
-              date: '17:30:23'
-            },
-            {
-              message: 'Maquina desligada',
-              date: '15/04/2025 20:30:23'
-            }
-          ].map((msg) => (
-            <Flex align="center" justify="between" key={msg.date}>
+
+          {data?.activity_logs?.map((acl) => (
+            <Flex align="center" justify="between" key={acl.log_id}>
               <Typography.Paragraph className="m-0 flex items-center justify-center text-sm font-bold text-neutral-500">
                 <ChevronRight size={16} />
-                {msg.message}
+                {acl.message}
               </Typography.Paragraph>
-              <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">{msg.date}</Typography.Paragraph>
+              <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">
+                {acl.created_at}
+              </Typography.Paragraph>
             </Flex>
           ))}
           <CornerRightDown className="absolute right-4 bottom-4 scale-100 animate-pulse stroke-3 text-neutral-400 opacity-100 shadow-white drop-shadow-xs transition-all group-hover/terminalcard:bottom-[-1rem] group-hover/terminalcard:scale-0 group-hover/terminalcard:text-white group-hover/terminalcard:opacity-0" />
@@ -184,42 +196,18 @@ const LogsCard = () => {
               </Flex>
             </MorphingDialogTitle>
             <ScrollArea>
-              {[
-                {
-                  message: 'Maquina desligada',
-                  log: 'Device detected a power off',
-                  date: '20:30:23'
-                },
-                {
-                  message: 'Maquina ligada',
-                  log: 'Device detected a power on',
-                  date: '17:30:23'
-                },
-                {
-                  message: 'Maquina desligada',
-                  log: 'Device detected a power off',
-                  date: '15/04/2025 20:30:23'
-                },
-                {
-                  message: 'Alerta!',
-                  log: 'Device detected a high temperature',
-                  date: '15/04/2025 20:20:23'
-                }
-              ].map((msg) => (
-                <Flex align="start" justify="between" key={msg.date}>
-                  <Flex align="start" justify="start">
-                    <ChevronRight size={18} strokeWidth={3} className="mt-2 text-neutral-500" />
+              {data?.activity_logs?.map((acl) => (
+                <Flex align="start" justify="between" key={acl.log_id} className="p-2">
+                  <Flex align="center" justify="start">
+                    <ChevronRight size={18} strokeWidth={3} className="text-neutral-500" />
                     <Flex align="start" className="gap-0" vertical>
-                      <Typography.Paragraph className="m-0 flex items-center justify-center text-sm font-bold text-neutral-500">
-                        {msg.message}
-                      </Typography.Paragraph>
-                      <Typography.Paragraph className="flex items-center justify-center text-xs font-bold text-neutral-600">
-                        {msg.log}
-                      </Typography.Paragraph>
+                      <Typography.Text className="m-0 flex items-center justify-center text-sm font-bold text-neutral-500">
+                        {acl.message}
+                      </Typography.Text>
                     </Flex>
                   </Flex>
                   <Typography.Paragraph className="m-0 text-xs font-bold text-neutral-500">
-                    {msg.date}
+                    {acl.created_at}
                   </Typography.Paragraph>
                 </Flex>
               ))}

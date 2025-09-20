@@ -1,8 +1,20 @@
 import logo from '@/assets/logo.png';
 import logoMinimal from '@/assets/LogoMinimal.png';
 import { useAuth } from '@/context/auth-context';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/shared/components/atom/collapsible';
 import { useUserDecode } from '@/shared/hooks/use-user';
-import { Bot, Factory, LayoutDashboard, LogOut, Settings, User } from 'lucide-react';
+import {
+  Bot,
+  ChevronDown,
+  Circle,
+  ClipboardPenLine,
+  Dot,
+  Factory,
+  LayoutDashboard,
+  LogOut,
+  Settings,
+  User
+} from 'lucide-react';
 import { JSX, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../../shared/components/atom/avatar';
@@ -29,6 +41,7 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -59,12 +72,28 @@ export const AppSidebar = () => {
         }
       },
       {
-        key: 'Ai',
-        label: 'Ai',
-        icon: <Bot />,
-        onClick: () => {
-          navigate('ai');
-        }
+        key: 'register',
+        label: 'Register',
+        icon: <ClipboardPenLine />,
+        onClick: () => {},
+        children: [
+          {
+            key: 'register-machine-type',
+            label: 'Machine Type',
+            icon: <Dot />,
+            onClick: () => {
+              navigate('register/machineType');
+            }
+          },
+          {
+            key: 'register-role',
+            label: 'Roles',
+            icon: <Dot />,
+            onClick: () => {
+              navigate('register/role');
+            }
+          }
+        ]
       },
       {
         key: 'settings',
@@ -72,6 +101,14 @@ export const AppSidebar = () => {
         icon: <Settings />,
         onClick: () => {
           navigate('settings');
+        }
+      },
+      {
+        key: 'Ai',
+        label: 'Ai',
+        icon: <Bot />,
+        onClick: () => {
+          navigate('ai');
         }
       }
     ],
@@ -88,14 +125,42 @@ export const AppSidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {sidebarItems.map((item) => (
-              <SidebarMenuItem key={item.key}>
-                <SidebarMenuButton className="cursor-pointer" onClick={item.onClick} key={item.key}>
-                  {item.icon}
-                  {item.label}
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {sidebarItems.map((item) =>
+              !item.children ? (
+                <SidebarMenuItem key={item.key}>
+                  <SidebarMenuButton className="cursor-pointer" onClick={item.onClick} key={item.key}>
+                    {item.icon}
+                    {item.label}
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ) : (
+                <Collapsible className="group/collapsible">
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton className="cursor-pointer">
+                      {item.icon}
+                      {item.label}
+                      <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarGroup>
+                      <SidebarGroupContent>
+                        <SidebarMenu>
+                          {item.children.map((subitem) => (
+                            <SidebarMenuItem onClick={subitem.onClick} key={item.key}>
+                              <SidebarMenuButton className="cursor-pointer">
+                                {subitem.icon}
+                                {subitem.label}
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          ))}
+                        </SidebarMenu>
+                      </SidebarGroupContent>
+                    </SidebarGroup>
+                  </CollapsibleContent>
+                </Collapsible>
+              )
+            )}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>

@@ -61,7 +61,7 @@ const RegisterPage: React.FC = () => {
               </div>
 
               <Button type="submit" className="w-full">
-                Cadastrar
+                Register
               </Button>
 
               <div className="flex justify-center">

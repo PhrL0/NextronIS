@@ -1,4 +1,5 @@
 import { AppSidebar } from '@/features/app/components/molecules/app-sidebar';
+import { Flex } from '@/shared/components/atom/layout';
 import { SidebarInset, SidebarProvider } from '@/shared/components/organisms/sidebar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -26,8 +27,11 @@ const App = () => {
           <AppSidebar />
           <SidebarInset>
             <AppHeader />
-
-            <Outlet />
+            <Flex align="center" justify="center" className="size-full">
+              <Flex className="size-full max-w-5xl">
+                <Outlet />
+              </Flex>
+            </Flex>
           </SidebarInset>
           {/* <Footer></Footer> */}
         </SidebarProvider>

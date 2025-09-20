@@ -1,12 +1,12 @@
 import { MachineGet200ResponseMachinesInner } from '@/generate-api';
+import Typography from '@/shared/components/atom/typography';
 import clsx from 'clsx';
-import { ChevronsUp, EllipsisVertical, Gauge, Plug, Thermometer } from 'lucide-react';
+import { ArrowRight, Ellipsis, Gauge, Plug, Thermometer } from 'lucide-react';
 import { useMemo } from 'react';
 import { Link } from 'react-router';
 import { Button } from '../../../../shared/components/atom/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../shared/components/atom/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../../../../shared/components/atom/card';
 import { Flex } from '../../../../shared/components/atom/layout';
-import Typography from '../../../../shared/components/atom/typography';
 import { Meter } from '../../../../shared/components/molecules/meter';
 
 type MachineCardProps = {
@@ -29,53 +29,58 @@ export const MachineCard = ({ machine }: MachineCardProps) => {
         `bg-${warningColor}-600/50`,
         `border-${warningColor}-700/25`,
         `shadow-${warningColor}-700/20 shadow-none`,
-        'min-w-xs gap-0 pb-0'
+        'w-full min-w-xs gap-0 pb-0'
       )}
     >
       <CardHeader className="pb-0">
         <Flex justify="between" align="start">
           <Flex vertical>
             <CardTitle>{machine.name}</CardTitle>
-            <Typography.Paragraph className="text-xs text-neutral-800/50 dark:text-neutral-100/15">
+            <Typography.Text className="text-xs text-neutral-800/50 dark:text-neutral-100/15">
               {machine.location.name}
-            </Typography.Paragraph>
+            </Typography.Text>
           </Flex>
-          <Button children={<EllipsisVertical size={16} />} variant="ghost" size="icon" />
+
+          <Button size="icon">
+            <Ellipsis />
+          </Button>
         </Flex>
       </CardHeader>
       <CardContent className="p-0 px-3">
         <Flex className="p-4" justify="between" align="end">
-          <div className="flex flex-wrap items-start justify-start gap-2">
+          <div className="w-full space-y-2">
             <Meter
-              vertical
               icon={<Thermometer size={20} className="text-neutral-500 dark:text-neutral-600" />}
               currentValue={30}
               max={120}
               min={-25}
+              className="w-full"
             />
             <Meter
-              vertical
               icon={<Plug className="text-neutral-500 dark:text-neutral-600" size={20} />}
               currentValue={86}
               max={120}
               min={-25}
+              className="w-full"
             />
             <Meter
-              vertical
               icon={<Gauge className="text-neutral-500 dark:text-neutral-600" size={20} />}
               currentValue={50}
               max={100}
               min={0}
               displayFormat="percentage"
+              className="w-full"
             />
           </div>
-          <Link to={`${machine.machine_id}`}>
-            <Button variant="secondary" size="icon">
-              <ChevronsUp />
-            </Button>
-          </Link>
         </Flex>
       </CardContent>
+      <CardFooter className="flex items-center justify-end gap-1 pb-2">
+        <Link to={`${machine.machine_id}`}>
+          <Button variant="link" className="group p-0">
+            See more <ArrowRight className="size-0 transition-all group-hover:size-4" />
+          </Button>
+        </Link>
+      </CardFooter>
     </Card>
   );
 };

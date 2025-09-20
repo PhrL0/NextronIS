@@ -166,6 +166,9 @@ body {
 }
 
 @layer base {
+  html {
+    font-family: 'Roboto Condensed', sans-serif; /* Apply to the html element */
+  }
   * {
     @apply border-border outline-ring/50;
   }
